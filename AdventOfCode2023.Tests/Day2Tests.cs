@@ -65,5 +65,21 @@ namespace AdventOfCode2023.Tests
             Assert.That(game.CanGameBePlayedWithTheGivenBag(5, 6, 6), Is.EqualTo(false));
             Assert.That(game.GameId, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Should_return_the_power_of_the_set_that_should_be_played_to_make_the_game_possible()
+        {
+            Game game = new Game();
+
+            string input = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green";
+            game.ParseSets(input);
+            game.SethighestNumberFromSets(game.GameSets);
+            int highestBlueNumberRequiredToPlayTheGame = game.HighestBlueCubes;
+            int highestRedNumberRequiredToPlayTheGame = game.HighestRedCubes;
+            int highestGreenNumberRequiredToPlayTheGame = game.HighestGreenCubes;
+            int totalPower = highestBlueNumberRequiredToPlayTheGame * highestRedNumberRequiredToPlayTheGame * highestGreenNumberRequiredToPlayTheGame;
+
+            Assert.That(totalPower,Is.EqualTo(48));
+        }
     }
 }
