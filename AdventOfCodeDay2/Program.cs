@@ -11,7 +11,8 @@ foreach(string input in inputContent)
     game.ParseSets(input);
     if(game.CanGameBePlayedWithTheGivenBag(14, 13, 12))
     {
-        numberOfGameThatCanBePlayed++;
+        Console.WriteLine(game.GameId + " can be played");
+        numberOfGameThatCanBePlayed+= game.GameId;
     }
 }
 

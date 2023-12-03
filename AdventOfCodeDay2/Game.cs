@@ -68,7 +68,7 @@ namespace AdventOfCodeDay2
         public bool CanGameBePlayedWithTheGivenBag(int blueCubes,int greenCubes, int redCubes)
         {
             SethighestNumberFromSets(GameSets);
-            if(blueCubes > HighestBlueCubes && redCubes > HighestRedCubes && greenCubes > HighestGreenCubes)
+            if(blueCubes >= HighestBlueCubes && redCubes >= HighestRedCubes && greenCubes >= HighestGreenCubes)
             {
                 return true;
             }
