@@ -51,6 +51,7 @@ namespace AdventOfCode2023.Tests
             game.GameSets = game.ParseSets(input);
 
             Assert.That(game.CanGameBePlayedWithTheGivenBag(7, 6, 6),Is.EqualTo(true));
+            Assert.That(game.GameId, Is.EqualTo(1));
         }
 
         [Test]
@@ -59,9 +60,10 @@ namespace AdventOfCode2023.Tests
             Game game = new Game();
 
             string input = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green";
-            game.GameSets = game.ParseSets(input);
+            game.ParseSets(input);
 
             Assert.That(game.CanGameBePlayedWithTheGivenBag(5, 6, 6), Is.EqualTo(false));
+            Assert.That(game.GameId, Is.EqualTo(1));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kernel;
 
 namespace AdventOfCodeDay2
 {
@@ -14,6 +15,7 @@ namespace AdventOfCodeDay2
         public int HighestBlueCubes { get; private set; } = 0;
         public int HighestGreenCubes { get; private set;  } = 0;
         public int HighestRedCubes { get; private set; } = 0;
+        public int GameId { get; private set; }
         public List<GameSet> GameSets { get; set; }
 
         public Game() { }
@@ -21,6 +23,7 @@ namespace AdventOfCodeDay2
         public List<GameSet> ParseSets(string input)
         {
             var game = input.Split(":");
+            GameId = int.Parse(MyFileReader.FindAnIntegerInAString(game[0]));
             var gameSets = game[1];
             var sets = gameSets.Split(";");
             var parsedSets = new List<GameSet>();
@@ -30,41 +33,24 @@ namespace AdventOfCodeDay2
                 var gameSet = new GameSet();
                 foreach(var colorAndNumber in colorsToIdentify)
                 {
-                    var colorAndNumberAsArray = colorAndNumber.ToArray();
-                    var numberAsString = "";
-                    bool isANumber = false;
-                    for (int i = 0; i < colorAndNumberAsArray.Length; i++)
-                    {
-                        if (_validNumbers.Contains(colorAndNumberAsArray[i]))
-                        {
-                            isANumber = true;
-                            numberAsString += colorAndNumberAsArray[i];
-                        }
-
-                        // break when the number has been fully parsed
-                        if (numberAsString != "" && isANumber == false)
-                        {
-                            break;
-                        }
-
-                        isANumber = false;
-                    }
+                    var integerFoundInTheString = MyFileReader.FindAnIntegerInAString(colorAndNumber);
 
                     if (colorAndNumber.IndexOf("blue") != -1)
                     {
-                        gameSet.BlueCubes = int.Parse(numberAsString);
+                        gameSet.BlueCubes = int.Parse(integerFoundInTheString);
                     }
                     if (colorAndNumber.IndexOf("red") != -1)
                     {
-                        gameSet.RedCubes = int.Parse(numberAsString);
+                        gameSet.RedCubes = int.Parse(integerFoundInTheString);
                     }
                     if (colorAndNumber.IndexOf("green") != -1)
                     {
-                        gameSet.GreenCubes = int.Parse(numberAsString);
+                        gameSet.GreenCubes = int.Parse(integerFoundInTheString);
                     }
                 }
                 parsedSets.Add(gameSet);
             }
+            GameSets = parsedSets;
             return parsedSets;
         }
 
