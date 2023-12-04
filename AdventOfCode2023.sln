@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2023Day3", "AdventOfCode2023Day3\AdventOfCode2023Day3.csproj", "{C592F4EF-5570-4C12-820C-0A697F415B2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day3", "AdventOfCode2023Day3\AdventOfCode2023Day3.csproj", "{C592F4EF-5570-4C12-820C-0A697F415B2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023.Tests", "AdventOfCode2023.Tests\AdventOfCode2023.Tests.csproj", "{A10EB749-FC76-416C-8835-F4E1721AFF03}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kernel", "Kernel\Kernel.csproj", "{94AB5BC2-D7E0-4B8F-8267-485028AF9D71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeDay2", "AdventOfCodeDay2\AdventOfCodeDay2.csproj", "{C23E4202-A609-45A6-A813-4A12C90309B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCodeDay2", "AdventOfCodeDay2\AdventOfCodeDay2.csproj", "{C23E4202-A609-45A6-A813-4A12C90309B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2023Day4", "AdventOfCode2023Day4\AdventOfCode2023Day4.csproj", "{A2F87D6D-C4A0-4CEA-9C58-B22538AF22CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C23E4202-A609-45A6-A813-4A12C90309B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C23E4202-A609-45A6-A813-4A12C90309B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C23E4202-A609-45A6-A813-4A12C90309B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2F87D6D-C4A0-4CEA-9C58-B22538AF22CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2F87D6D-C4A0-4CEA-9C58-B22538AF22CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2F87D6D-C4A0-4CEA-9C58-B22538AF22CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2F87D6D-C4A0-4CEA-9C58-B22538AF22CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
