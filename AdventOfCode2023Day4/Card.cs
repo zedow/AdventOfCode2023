@@ -38,5 +38,29 @@ namespace AdventOfCode2023Day4
                 Numbers.Add(int.Parse(MyFileReader.FindAnIntegerInAString(playableNumber)));
             }
         }
+
+        public int GetCardWorth()
+        {
+            var total = 0;
+            foreach(var number in Numbers)
+            {
+                foreach (var winningNumber in WinningNumbers)
+                {
+                    if(number == winningNumber)
+                    {
+                        if(total == 0)
+                        {
+                            total += 1;
+                        }
+                        else
+                        {
+                            total = total * 2;
+                        }
+                    }
+                }
+            }
+
+            return total;
+        }
     }
 }

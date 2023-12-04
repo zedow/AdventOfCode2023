@@ -26,5 +26,15 @@ namespace AdventOfCode2023.Tests
             Assert.That(card.Numbers.First(), Is.EqualTo(83));
             Assert.That(card.Id, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Should_return_card_worth_from_parsed_winning_numbers_and_numbers()
+        {
+            var input = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53";
+
+            var card = new Card(input);
+
+            Assert.That(card.GetCardWorth(), Is.EqualTo(8));
+        }
     }
 }
