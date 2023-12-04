@@ -5,26 +5,18 @@ string filePath = "../../../input.txt";
 string[] inputContent = new MyFileReader().ReadFile(filePath);
 var total = 0;
 var totalScratchCardsPartTwo = 0;
-Queue<Card> cardsList = new Queue<Card>();
+var cardWatch = new CardsWatcher(inputContent);
+cardWatch.SetCardsCopies();
 
-foreach(string input in inputContent)
+foreach (Card card in cardWatch.GetCards())
 {
-    var card = new Card(input);
     var cardWoth = card.GetCardWorth();
-    cardsList.Enqueue(card);
     if(cardWoth > 0)
     {
         total += cardWoth;
     }
-}
-
-foreach(var card in cardsList)
-{
-    var cardWoth = card.GetCardWorth();
-    if (cardWoth > 0)
-    {
-        //for(int i = 0; i < card)
-    }
+    totalScratchCardsPartTwo += 1 + card.Copies;
 }
 
 Console.WriteLine("Total cards worth is : " + total);
+Console.WriteLine("Total cards count (with copies): " + totalScratchCardsPartTwo);
