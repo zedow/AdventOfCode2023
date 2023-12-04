@@ -10,6 +10,7 @@ namespace AdventOfCode2023Day4
     public class Card
     {
         public int Id { get; private set; }
+        public int Copies { get; set; }  
         public List<int> WinningNumbers { get; private set; }
         public List<int> Numbers { get; private set; }
         public Card(string input) 
@@ -56,6 +57,23 @@ namespace AdventOfCode2023Day4
                         {
                             total = total * 2;
                         }
+                    }
+                }
+            }
+
+            return total;
+        }
+
+        public int GetNumberOfMatchningNumbers()
+        {
+            var total = 0;
+            foreach (var number in Numbers)
+            {
+                foreach (var winningNumber in WinningNumbers)
+                {
+                    if (number == winningNumber)
+                    {
+                        total += 1;
                     }
                 }
             }
