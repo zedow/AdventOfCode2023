@@ -48,7 +48,7 @@ namespace AdventOfCode2023.Tests
 
         [TestCase(51,53)]
         [TestCase(99,51)]
-        public void Should_mapper_return_input_map_correspondence_when_one_of_input_maps_got_input_number_in_their_range(int inputNumber,int result)
+        public void Should_mapper_return_input_map_correspondence_when_one_of_input_maps_got_input_number_in_their_range(long inputNumber, long result)
         {
             var input = "seed-to-soil map:\r\n50 98 2\r\n52 50 48";
 
@@ -83,7 +83,7 @@ namespace AdventOfCode2023.Tests
 
         [TestCase(79,81,"seed","soil")]
         [TestCase(14, 53, "soil", "fertilizer")]
-        public void Mapper_must_find_and_use_the_correct_map_when_given_name_of_an_existing_map(int input, int result, string source,string output)
+        public void Mapper_must_find_and_use_the_correct_map_when_given_name_of_an_existing_map(long input, long result, string source,string output)
         {
             var inputAlmanac =
                 @"seeds: 79 14 55 13
@@ -107,7 +107,7 @@ namespace AdventOfCode2023.Tests
         [TestCase(14, 43)]
         [TestCase(55, 86)]
         [TestCase(13, 35)]
-        public void Mapper_should_return_a_locations_for_every_input_seeds(int seed, int location)
+        public void Mapper_should_return_a_locations_for_every_input_seeds(long seed, long location)
         {
             var inputAlmanac =
                 @$"seeds: {seed}
@@ -146,7 +146,7 @@ namespace AdventOfCode2023.Tests
 
             var mapper = new Mapper();
             mapper.ParseAlmanac(inputAlmanac);
-            List<int> locations = mapper.MapAlmanacSeedsToLocations();
+            List<long> locations = mapper.MapAlmanacSeedsToLocations();
 
             Assert.That(locations.First(), Is.EqualTo(location));
         }

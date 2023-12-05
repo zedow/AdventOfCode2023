@@ -6,13 +6,13 @@ namespace AdventOfCode2023Day5
 {
     public class Map
     {
-        public int From { get; private set; }
-        public int To { get; private set; }
-        public int Range { get; private set; }
+        public long From { get; private set; }
+        public long To { get; private set; }
+        public long Range { get; private set; }
         public string FromName { get; private set; }
         public string ToName { get; private set; }
 
-        public Map(int from, int to, int range,string fromName, string toName)
+        public Map(long from, long to, long range,string fromName, string toName)
         {
             From = from;
             To = to;
@@ -26,7 +26,7 @@ namespace AdventOfCode2023Day5
 
         public static List<Map> ParseMaps(string str)
         {
-            List<int> integers = MyFileReader.ParseIntegersFromStringInputUsingRegex(str);
+            List<long> integers = MyFileReader.ParseLongsFromStringInputUsingRegex(str);
             string[] names = ParseMapNames(str);
             List<Map> maps = new List<Map>();
             foreach (var mapIntegers in integers.Chunk(MAP_COMPOSITION))

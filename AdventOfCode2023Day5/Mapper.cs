@@ -10,18 +10,18 @@ namespace AdventOfCode2023Day5
     public class Mapper
     {
         private List<Map> _maps;
-        private List<int> _seeds;
+        private List<long> _seeds;
 
         public Mapper()
         {
             _maps = new List<Map>();
-            _seeds = new List<int>();
+            _seeds = new List<long>();
         }
 
         public List<Map> GetStoredMaps() => _maps;
-        public List<int> GetSeeds() => _seeds;
+        public List<long> GetSeeds() => _seeds;
 
-        public static int MapFromMaps(int input, List<Map> maps)
+        public static long MapFromMaps(long input, List<Map> maps)
         {
             foreach(var map in maps)
             {
@@ -33,15 +33,15 @@ namespace AdventOfCode2023Day5
             return input;
         }
 
-        public int MapInput(int input, string source, string target)
+        public long MapInput(long input, string source, string target)
         {
             var maps = _maps.Where(m => m.FromName == source && m.ToName == target).ToList();
             return MapFromMaps(input, maps);
         }
 
-        public List<int> MapAlmanacSeedsToLocations()
+        public List<long> MapAlmanacSeedsToLocations()
         {
-            List<int> locations = new List<int>(); 
+            List<long> locations = new List<long>(); 
             foreach(var seed in _seeds)
             {
                 var location = seed;
@@ -65,7 +65,7 @@ namespace AdventOfCode2023Day5
             {
                 _maps.AddRange(Map.ParseMaps(splitInput[i]));
             }
-            _seeds = MyFileReader.ParseIntegersFromStringInputUsingRegex(seeds);
+            _seeds = MyFileReader.ParseLongsFromStringInputUsingRegex(seeds);
         }
     }
 }

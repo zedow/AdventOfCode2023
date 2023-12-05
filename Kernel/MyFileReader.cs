@@ -37,11 +37,22 @@ namespace Kernel
 
         public static List<int> ParseIntegersFromStringInputUsingRegex(string input)
         {
-            string pattern = @"(\d{1,9} ?)";
+            string pattern = @"(\d{1,32} ?)";
             var list = new List<int>();
             foreach(Match match in Regex.Matches(input, pattern))
             {
                 list.Add(int.Parse(match.Value));
+            }
+            return list;
+        }
+
+        public static List<long> ParseLongsFromStringInputUsingRegex(string input)
+        {
+            string pattern = @"(\d{1,32} ?)";
+            var list = new List<long>();
+            foreach (Match match in Regex.Matches(input, pattern))
+            {
+                list.Add(long.Parse(match.Value));
             }
             return list;
         }
