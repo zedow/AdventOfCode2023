@@ -32,5 +32,17 @@ namespace AdventOfCode2023.Tests
 
             Assert.That(mapNames.First(), Is.EqualTo("seed"));
         }
+
+        [Test]
+        public void Should_mapper_return_input_number_when_it_is_ouside_of_the_maps_range()
+        {
+            var input = "seed-to-soil map:\r\n50 98 2\r\n52 50 48";
+            var inputNumber = 79;
+
+            List<Map> maps = Map.ParseMaps(input);
+            var output = Mapper.Map(inputNumber, maps);
+
+            Assert.That(output,Is.EqualTo(inputNumber));
+        }
     }
 }
