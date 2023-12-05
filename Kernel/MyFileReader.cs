@@ -1,4 +1,6 @@
-﻿namespace Kernel
+﻿using System.Text.RegularExpressions;
+
+namespace Kernel
 {
     public class MyFileReader
     {
@@ -31,6 +33,17 @@
                 isANumber = false;
             }
             return numberAsString;
+        }
+
+        public static List<int> ParseIntegersFromStringInputUsingRegex(string input)
+        {
+            string pattern = @"(\d{1,9} ?)";
+            var list = new List<int>();
+            foreach(Match match in Regex.Matches(input, pattern))
+            {
+                list.Add(int.Parse(match.Value));
+            }
+            return list;
         }
     }
 }
