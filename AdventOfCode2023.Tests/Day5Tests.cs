@@ -56,5 +56,51 @@ namespace AdventOfCode2023.Tests
 
             Assert.That(output, Is.EqualTo(result));
         }
+
+        [Test]
+        public void Should_mapper_parse_and_store_maps_from_full_input()
+        {
+            var input =
+                @"seeds: 79 14 55 13
+
+                seed-to-soil map:
+                50 98 2
+                52 50 48
+
+                soil-to-fertilizer map:
+                0 15 37
+                37 52 2
+                39 0 15";
+
+            var mapper = new Mapper();
+            mapper.ParseAlmanac(input);
+            List<Map> maps = mapper.GetStoredMaps();
+
+            Assert.That(maps.Count, Is.EqualTo(5));
+            Assert.That(mapper.GetSeeds().Count, Is.EqualTo(4));
+        }
+
+        [TestCase(79,81,"seed","soil")]
+        [TestCase(14, 53, "soil", "fertilizer")]
+        public void Should_mapper_must_find_and_use_the_correct_map_when_given_name_of_an_existing_map(int input, int result, string source,string output)
+        {
+            var inputAlmanac =
+                @"seeds: 79 14 55 13
+
+                seed-to-soil map:
+                50 98 2
+                52 50 48
+
+                soil-to-fertilizer map:
+                0 15 37
+                37 52 2
+                39 0 15";
+
+            var mapper = new Mapper();
+            mapper.ParseAlmanac(inputAlmanac);
+            List<Map> maps = mapper.GetStoredMaps();
+
+            Assert.That(mapper.MapInput(input, source, output), Is.EqualTo(result));
+        }
     }
 }
