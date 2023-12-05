@@ -1,4 +1,5 @@
 ﻿using AdventOfCode2023Day5;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 
 namespace AdventOfCode2023.Tests
 {
@@ -82,7 +83,7 @@ namespace AdventOfCode2023.Tests
 
         [TestCase(79,81,"seed","soil")]
         [TestCase(14, 53, "soil", "fertilizer")]
-        public void Should_mapper_must_find_and_use_the_correct_map_when_given_name_of_an_existing_map(int input, int result, string source,string output)
+        public void Mapper_must_find_and_use_the_correct_map_when_given_name_of_an_existing_map(int input, int result, string source,string output)
         {
             var inputAlmanac =
                 @"seeds: 79 14 55 13
@@ -98,9 +99,56 @@ namespace AdventOfCode2023.Tests
 
             var mapper = new Mapper();
             mapper.ParseAlmanac(inputAlmanac);
-            List<Map> maps = mapper.GetStoredMaps();
 
             Assert.That(mapper.MapInput(input, source, output), Is.EqualTo(result));
+        }
+
+        [TestCase(79,82)]
+        [TestCase(14, 43)]
+        [TestCase(55, 86)]
+        [TestCase(13, 35)]
+        public void Mapper_should_return_a_locations_for_every_input_seeds(int seed, int location)
+        {
+            var inputAlmanac =
+                @$"seeds: {seed}
+
+                seed-to-soil map:
+                50 98 2
+                52 50 48
+
+                soil-to-fertilizer map:
+                0 15 37
+                37 52 2
+                39 0 15
+
+                fertilizer-to-water map:
+                49 53 8
+                0 11 42
+                42 0 7
+                57 7 4
+
+                water-to-light map:
+                88 18 7
+                18 25 70
+
+                light-to-temperature map:
+                45 77 23
+                81 45 19
+                68 64 13
+
+                temperature-to-humidity map:
+                0 69 1
+                1 0 69
+
+                humidity-to-location map:
+                60 56 37
+                56 93 4";
+
+            var mapper = new Mapper();
+            mapper.ParseAlmanac(inputAlmanac);
+            List<int> locations = mapper.MapAlmanacSeedsToLocations();
+
+            Assert.That(locations.First(), Is.EqualTo(location));
         }
     }
 }

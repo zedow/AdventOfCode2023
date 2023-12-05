@@ -39,6 +39,24 @@ namespace AdventOfCode2023Day5
             return MapFromMaps(input, maps);
         }
 
+        public List<int> MapAlmanacSeedsToLocations()
+        {
+            List<int> locations = new List<int>(); 
+            foreach(var seed in _seeds)
+            {
+                var location = seed;
+                location = MapInput(location, "seed", "soil");
+                location = MapInput(location, "soil", "fertilizer");
+                location = MapInput(location, "fertilizer", "water");
+                location = MapInput(location, "water", "light");
+                location = MapInput(location, "light", "temperature");
+                location = MapInput(location, "temperature", "humidity");
+                location = MapInput(location, "humidity", "location");
+                locations.Add(location);
+            }
+            return locations;
+        }
+
         public void ParseAlmanac(string input)
         {
             var splitInput = input.Split(new string[] { "\r\n\r\n" },StringSplitOptions.RemoveEmptyEntries);
