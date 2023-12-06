@@ -4,17 +4,20 @@ using Kernel;
 string filePath = "../../../input.txt";
 string inputContent = File.ReadAllText(filePath);
 
-var mapper = new Mapper();
-mapper.ParseAlmanac(inputContent);
+var mapper = new MapperV2();
+mapper.ParseMaps(inputContent);
 
-var locations = mapper.MapAlmanacSeedsToLocations();
-
-Console.WriteLine("Locations are:");
-foreach(var location in locations)
+List<AdventOfCode2023Day5.Range> ranges = new List<AdventOfCode2023Day5.Range>();
+foreach(var seed in mapper.Seeds.Chunk(2))
 {
-    Console.WriteLine("- " + location);
+    ranges.Add(new AdventOfCode2023Day5.Range(seed[0], seed[0] + seed[1]));
 }
 
-Console.WriteLine("The lowest location is: " + locations.OrderBy(l => l).First());
-Console.ReadLine();
+foreach(var map in mapper.Maps)
+{
+    ranges = ranges.SelectMany(range => mapper.Explore(range, map)).ToList();
+}
 
+Console.WriteLine(ranges.OrderBy(r => r.Start).ToList().First().Start + " is the lowest location");    
+
+Console.ReadLine();

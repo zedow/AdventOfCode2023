@@ -21,11 +21,28 @@ namespace AdventOfCode2023Day5
         public List<Map> GetStoredMaps() => _maps;
         public List<long> GetSeeds() => _seeds;
 
+        /// <summary>
+        /// Method to used if we now considere seeds loaded from input as pairs of number, first is the seed start, and second is the range
+        /// for example, the pair 79 2, produces seeds 79 and 80 instead of 79 and 2
+        /// </summary>
+        public void ConsiderInputSeedsAsPairsNumbersAndReplaceOldSeeds()
+        {
+            var newSeeds = new List<long>();
+            foreach (var seed in _seeds.Chunk(2)) 
+            {
+                for(int i = 0; i < seed[1]; i++)
+                {
+                    newSeeds.Add(seed[0] + i);
+                }
+            }
+            _seeds = newSeeds;
+        }
+
         public static long MapFromMaps(long input, List<Map> maps)
         {
             foreach(var map in maps)
             {
-                if(map.From <= input && (map.From + map.Range) >= input)
+                if (map.From <= input && (map.From + map.Range) >= input)
                 {
                     return map.To + (input - map.From);
                 }
@@ -41,20 +58,26 @@ namespace AdventOfCode2023Day5
 
         public List<long> MapAlmanacSeedsToLocations()
         {
-            List<long> locations = new List<long>(); 
-            foreach(var seed in _seeds)
+            List<long> locations = new List<long>();
+            foreach (var seed in _seeds)
             {
-                var location = seed;
-                location = MapInput(location, "seed", "soil");
-                location = MapInput(location, "soil", "fertilizer");
-                location = MapInput(location, "fertilizer", "water");
-                location = MapInput(location, "water", "light");
-                location = MapInput(location, "light", "temperature");
-                location = MapInput(location, "temperature", "humidity");
-                location = MapInput(location, "humidity", "location");
-                locations.Add(location);
+                locations.Add(GetLocationsFromSeed(seed));
             }
             return locations;
+        
+        }
+
+        public long GetLocationsFromSeed(long seed)
+        {
+            var location = seed;
+            location = MapInput(location, "seed", "soil");
+            location = MapInput(location, "soil", "fertilizer");
+            location = MapInput(location, "fertilizer", "water");
+            location = MapInput(location, "water", "light");
+            location = MapInput(location, "light", "temperature");
+            location = MapInput(location, "temperature", "humidity");
+            location = MapInput(location, "humidity", "location");
+            return location;
         }
 
         public void ParseAlmanac(string input)

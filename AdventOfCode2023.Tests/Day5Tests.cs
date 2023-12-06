@@ -150,5 +150,104 @@ namespace AdventOfCode2023.Tests
 
             Assert.That(locations.First(), Is.EqualTo(location));
         }
+
+        [Test]
+        public void Mapper_should_update_numbers_of_seed_when_we_consideres_that_input_seeds_are_pairs_of_numbers()
+        {
+            var inputAlmanac =
+                @$"seeds: 79 14 55 13
+
+                seed-to-soil map:
+                50 98 2
+                52 50 48";
+
+            var mapper = new Mapper();
+            mapper.ParseAlmanac(inputAlmanac);
+            mapper.ConsiderInputSeedsAsPairsNumbersAndReplaceOldSeeds();
+
+            Assert.That(mapper.GetSeeds().Count, Is.EqualTo(27));
+        }
+
+        [Test]
+        public void MapperV2_should_parse_maps_from_input()
+        {
+            var inputAlmanac =
+               @$"seeds: 79 14 55 13
+
+                seed-to-soil map:
+                50 98 2
+                52 50 48";
+
+            var mapper = new MapperV2();
+            mapper.ParseMaps(inputAlmanac);
+
+            Assert.That(mapper.Maps.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void MapperV2_should_explore_seeds_and_return_all_possible_ranges()
+        {
+            var inputAlmanac =
+               @$"seeds: 79 14 55 13
+
+                seed-to-soil map:
+                50 98 2
+                52 50 48";
+
+            var mapper = new MapperV2();
+            mapper.ParseMaps(inputAlmanac);
+            IEnumerable<AdventOfCode2023Day5.Range> ranges = mapper.Explore(new AdventOfCode2023Day5.Range(79,93), mapper.Maps.First());
+
+            Assert.That(ranges.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void MapperV2_should_explore_seeds_and_return_available_ranges_contaning_the_lowest_possible_range()
+        {
+            var inputAlmanac =
+                 @$"seeds: 79 14
+
+                seed-to-soil map:
+                50 98 2
+                52 50 48
+
+                soil-to-fertilizer map:
+                0 15 37
+                37 52 2
+                39 0 15
+
+                fertilizer-to-water map:
+                49 53 8
+                0 11 42
+                42 0 7
+                57 7 4
+
+                water-to-light map:
+                88 18 7
+                18 25 70
+
+                light-to-temperature map:
+                45 77 23
+                81 45 19
+                68 64 13
+
+                temperature-to-humidity map:
+                0 69 1
+                1 0 69
+
+                humidity-to-location map:
+                60 56 37
+                56 93 4";
+
+            var mapper = new MapperV2();
+            mapper.ParseMaps(inputAlmanac);
+            List<AdventOfCode2023Day5.Range>? ranges = new List<AdventOfCode2023Day5.Range> { new AdventOfCode2023Day5.Range(79,93)};
+            foreach(var map in mapper.Maps)
+            {
+                ranges = ranges.SelectMany(range => mapper.Explore(range, map)).ToList();
+            }
+
+            Assert.That(ranges.OrderBy(r => r.Start).First().Start,Is.EqualTo(46));
+        }
     }
 }
