@@ -14,7 +14,7 @@ namespace AdventOfCode2023.Tests
         {
             var race = new Race(59);
 
-            (double, double) bestAvailableRange = race.FindHoldingTimeFromDistance(430);
+            (double, double) bestAvailableRange = race.FindIntervalsOfPossibleValuesToBeatGivenDistance(430);
 
             Assert.That(bestAvailableRange, Is.EqualTo((50, 9)));
         }
@@ -24,7 +24,7 @@ namespace AdventOfCode2023.Tests
         {
             var race = new Race(7);
 
-            (double, double) bestAvailableRange = race.FindHoldingTimeFromDistance(9);
+            (double, double) bestAvailableRange = race.FindIntervalsOfPossibleValuesToBeatGivenDistance(9);
             double numbersOfHoldingValues = (bestAvailableRange.Item2 - bestAvailableRange.Item1) + 1;
 
             Assert.That(numbersOfHoldingValues,Is.EqualTo(4d));
