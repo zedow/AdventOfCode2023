@@ -9,22 +9,36 @@ namespace AdventOfCode2023.Tests
 {
     public class Day7Tests
     {
-        [TestCase("AAAAA", 585000000)]
-        [TestCase("KKKKK", 540000000)]
-        [TestCase("AA8AA", 45600000)]
-        [TestCase("23332", 350000)]
-        [TestCase("TTT98", 210000)]
-        [TestCase("23432", 2500)]
-        [TestCase("A23A4", 1040)]
-        [TestCase("23456", 15)]
-        [TestCase("13456", 12)]
+        [TestCase("AAAAA", 55555)]
+        [TestCase("AA8AA", 44441)]
+        [TestCase("23332", 33322)]
+        [TestCase("TTT98", 33311)]
+        [TestCase("23432", 22221)]
+        [TestCase("A23A4", 22111)]
+        [TestCase("23456", 11111)]
         public void CamelCards_should_return_hand_strengh(string hand, int strengh)
         {
-            var camelCards = new CamelCards();
+            var handStrength = CamelCards.GetHandStrength(hand);
 
-            var handStrength = camelCards.GetHandStrength(hand);
-
-            Assert.That(handStrength, Is.EqualTo(strengh));
+            Assert.That(handStrength.Item1, Is.EqualTo(strengh));
         }
+
+        [TestCase("AAAAA", 55555)]
+        [TestCase("AAJAA", 55555)]
+        [TestCase("2333J", 44441)]
+        [TestCase("TTTJ8", 44441)]
+        [TestCase("23J32", 33322)]
+        [TestCase("233J2",33322)]
+        [TestCase("2J332", 33322)]
+        [TestCase("JJJJ8",55555)]
+        [TestCase("JJJJJ", 55555)]
+        public void CamelCards_should_return_hand_strengh_considering_j_as_joker(string hand, int strengh)
+        {
+            var handStrength = CamelCards.GetHandStrength(hand,true);
+
+            Assert.That(handStrength.Item1, Is.EqualTo(strengh));
+        }
+
+
     }
 }

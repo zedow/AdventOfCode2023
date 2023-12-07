@@ -8,39 +8,36 @@ namespace AdventOfCode2023Day7
 {
     public class CamelCards
     {
-        public List<char> CardsOrderedByStrength = new List<char>{ '#','#','2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' };
-        public int GetHandStrength(string input)
+        public static string CardsOrderedByStrength = "##23456789TJQKA";
+        public static string CardsOrderedByStrengthPart2 = "#J23456789TQKA";
+        public static (int, int) GetHandStrength(string input, bool part2 = false)
         {
             var chars = input.ToCharArray().ToList();
-            var group = chars.GroupBy(c => c).OrderByDescending(group => group.Count());
-            int value;
-            if(group.First().Count() == 5)
-            {
-                value = 9000000;
-            }
-            else if(group.First().Count() == 4)
-            {
-                value = 800000;
-            }
-            else if(group.First().Count() == 3 && group.Last().Count() == 2)
-            {
-                value = 70000;
-            }
-            else if(group.First().Count() == 3 && group.Last().Count() == 1)
-            {
-                value = 6000;
-            }
-            else if(group.First().Count() == 2 && group.ElementAt(1).Count() == 2)
-            {
-                value = 500;
-            }
-            else if(group.First().Count() == 2)
-            {
-                value = 40;
-            }
-            else { value = 3; }
+            // Replace J as Joker by the most frequent character that is not a J to upgrade global card strength
+            var arrangedInput = input != "JJJJJ" ? input.Replace('J', chars
+                .Select(ch => (ch, chars.Count(counter => counter == ch)))
+                .Where(c => c.ch != 'J')
+                .OrderByDescending(order => order.Item2)
+                .First().ch
+            ) : input;
+            var arrangedChars = (part2 ? arrangedInput : input).ToCharArray().ToList();
+        
+            // concat ordered number of each caracters, QQQJA gives 33311, and QQQQA give 44441
+            string value = arrangedChars.
+                Select(ch => arrangedChars.Count(c => c == ch).ToString())
+                .OrderDescending()
+                .Aggregate((prev,next) => prev + next);
 
-            return value * chars.Select(c => Math.Max(CardsOrderedByStrength.IndexOf(c) - (chars.IndexOf(c) + 1),0)).Sum();
+            return (int.Parse(value), GetCardStrength(part2 ? arrangedInput : input,part2));
+        }
+
+        private static int GetCardStrength(string input, bool part2 = false)
+        {
+            // Replace cards by their index value, add a zero on numbers < 10 to avoids global lower number due to string length
+            var cardsStrength = part2 ? CardsOrderedByStrengthPart2 : CardsOrderedByStrength;
+            return int.Parse(
+                input.Select(i => cardsStrength.IndexOf(i).ToString())
+                .Aggregate((prev, next) => next.Length == 1 ? prev + "0" + next : prev + next));
         }
     }
 }
