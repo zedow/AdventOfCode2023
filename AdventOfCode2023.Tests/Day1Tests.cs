@@ -12,12 +12,12 @@ namespace AdventOfCode2023.Tests
         [Test]
         public void Calibration_should_return_first_and_last_digit_when_input_contains_at_least_two_digits()
         {
-            var input = "1abc2";
+            var input = "rtwone881998";
 
             var calibration = new Calibration();
             int result = calibration.Calibrate(input);
 
-            Assert.That(result,Is.EqualTo(12));
+            Assert.That(result,Is.EqualTo(88));
         }
 
         [Test]
