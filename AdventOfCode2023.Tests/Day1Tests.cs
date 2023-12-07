@@ -19,5 +19,16 @@ namespace AdventOfCode2023.Tests
 
             Assert.That(result,Is.EqualTo(12));
         }
+
+        [Test]
+        public void Calibration_should_concat_the_same_digit_twice_when_input_contains_only_one_digit()
+        {
+            var input = "treb7uchet";
+
+            var calibration = new Calibration();
+            int result = calibration.Calibrate(input);
+
+            Assert.That(result, Is.EqualTo(77));
+        }
     }
 }
