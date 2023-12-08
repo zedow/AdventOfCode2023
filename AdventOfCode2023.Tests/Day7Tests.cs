@@ -23,20 +23,21 @@ namespace AdventOfCode2023.Tests
             Assert.That(handStrength.Item1, Is.EqualTo(strengh));
         }
 
-        [TestCase("AAAAA", 55555)]
-        [TestCase("AAJAA", 55555)]
-        [TestCase("2333J", 44441)]
-        [TestCase("TTTJ8", 44441)]
-        [TestCase("23J32", 33322)]
-        [TestCase("233J2",33322)]
-        [TestCase("2J332", 33322)]
-        [TestCase("JJJJ8",55555)]
-        [TestCase("JJJJJ", 55555)]
-        public void CamelCards_should_return_hand_strengh_considering_j_as_joker(string hand, int strengh)
+        [TestCase("AAAAA", 55555,1313131313)]
+        [TestCase("AAJAA", 55555, 1313011313)]
+        [TestCase("2333J", 44441,203030301)]
+        [TestCase("TTTJ8", 44441,1010100108)]
+        [TestCase("23J32", 33322,203010302)]
+        [TestCase("233J2",33322,203030102)]
+        [TestCase("2J332", 33322,201030302)]
+        [TestCase("JJJJ8",55555,101010108)]
+        [TestCase("JJJJJ", 55555,101010101)]
+        public void CamelCards_should_return_hand_strengh_considering_j_as_joker(string hand, int patternStrength, int cardsStrength)
         {
             var handStrength = CamelCards.GetHandStrength(hand,true);
 
-            Assert.That(handStrength.Item1, Is.EqualTo(strengh));
+            Assert.That(handStrength.Item1, Is.EqualTo(patternStrength));
+            Assert.That(handStrength.Item2, Is.EqualTo(cardsStrength));
         }
 
 

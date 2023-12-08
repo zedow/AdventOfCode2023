@@ -28,7 +28,7 @@ namespace AdventOfCode2023Day7
                 .OrderDescending()
                 .Aggregate((prev,next) => prev + next);
 
-            return (int.Parse(value), GetCardStrength(part2 ? arrangedInput : input,part2));
+            return (int.Parse(value), GetCardStrength(input,part2));
         }
 
         private static int GetCardStrength(string input, bool part2 = false)
