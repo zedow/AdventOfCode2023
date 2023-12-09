@@ -43,5 +43,16 @@ namespace AdventOfCode2023.Tests
 
             Assert.That(input, Is.EqualTo(result));
         }
+
+        [TestCase("tsgbzmgbonethreedrqzbhxjkvcnm3", 13)]
+        [TestCase("nineqrtrsfsreightthreetworvrphxptlrbczxsix1", 91)]
+        [TestCase("9h6nine", 99)]
+        [TestCase("rtwone88199twone", 21)]
+        public void Calibration_should_return_first_and_last_digits_or_digit_in_letter_of_the_input(string input, int result)
+        {
+            var value = new Calibration().CalibrateDigitsInLetter(input);
+
+            Assert.That(value, Is.EqualTo(result));
+        }
     }
 }

@@ -10,7 +10,7 @@ var total = inputContent.Select(calibration.Calibrate).Sum();
 
 Console.WriteLine(total);
 
-total = inputContent.Select(i => calibration.Calibrate(calibration.ReplaceDigitsInletterByDigits(i))).Sum();
+total = inputContent.Select(calibration.CalibrateDigitsInLetter).Sum();
 
 Console.WriteLine(total);
 
