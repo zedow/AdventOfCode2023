@@ -11,3 +11,11 @@ foreach(var input in inputContent)
 }
 
 Console.WriteLine(total);
+
+total = 0;
+foreach (var input in inputContent)
+{
+    total += Forecast.GetBackwardsValueFromHistory(input);
+}
+
+Console.WriteLine(total);
