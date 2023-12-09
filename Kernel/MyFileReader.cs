@@ -46,6 +46,7 @@ namespace Kernel
             string pattern = @"(one|two|three|four|five|six|seven|eight|nine)";
             return Regex.Matches(input, pattern).Select(match => match.Value).ToList();
         }
+
         public static List<int> ParseIntegersFromStringInputUsingRegex(string input)
         {
             string pattern = @"(-?\d{1,32} ?)";

@@ -1,2 +1,16 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using AdventOfCode2023Day1;
+using Kernel;
+
+string filePath = "../../../input.txt";
+string[] inputContent = new MyFileReader().ReadFile(filePath);
+var calibration = new Calibration();
+
+
+var total = inputContent.Select(calibration.Calibrate).Sum();
+
+Console.WriteLine(total);
+
+total = inputContent.Select(i => calibration.Calibrate(calibration.ReplaceDigitsInletterByDigits(i))).Sum();
+
+Console.WriteLine(total);
+
