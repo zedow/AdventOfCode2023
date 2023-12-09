@@ -35,9 +35,20 @@ namespace Kernel
             return numberAsString;
         }
 
+        public static List<string> ParseDigitsFromString(string input)
+        {
+            string pattern = @"(\d{1,1} ?)";
+            return Regex.Matches(input, pattern).Select(match => match.Value).ToList();
+        }
+
+        public static List<string> ParseDigitsInletters(string input)
+        {
+            string pattern = @"(one|two|three|four|five|six|seven|eight|nine)";
+            return Regex.Matches(input, pattern).Select(match => match.Value).ToList();
+        }
         public static List<int> ParseIntegersFromStringInputUsingRegex(string input)
         {
-            string pattern = @"(\d{1,32} ?)";
+            string pattern = @"(-?\d{1,32} ?)";
             var list = new List<int>();
             foreach(Match match in Regex.Matches(input, pattern))
             {
@@ -48,7 +59,7 @@ namespace Kernel
 
         public static List<long> ParseLongsFromStringInputUsingRegex(string input)
         {
-            string pattern = @"(\d{1,32} ?)";
+            string pattern = @"(-?\d{1,32} ?)";
             var list = new List<long>();
             foreach (Match match in Regex.Matches(input, pattern))
             {

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reflection.PortableExecutable;
 using Kernel;
 
@@ -31,6 +32,19 @@ namespace AdventOfCode2023.Tests
             List<int> integers = MyFileReader.ParseIntegersFromStringInputUsingRegex(input);
 
             Assert.That(integers.Count, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Should_return_an_array_of_integers_when_there_is_negative_integers()
+        {
+            string input = "-10 -20 30";
+
+            List<int> integers = MyFileReader.ParseIntegersFromStringInputUsingRegex(input);
+
+            Assert.That(integers.Count, Is.EqualTo(3));
+            Assert.That(integers.First(),Is.EqualTo(-10));
+            Assert.That(integers.ElementAt(1), Is.EqualTo(-20));
+            Assert.That(integers.ElementAt(2), Is.EqualTo(30));
         }
     }
 }
