@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using System.Numerics;
 
 namespace AdventOfCode2023Day8
 {
@@ -26,7 +28,7 @@ namespace AdventOfCode2023Day8
             }
         }
 
-        public int GetPathSteps(string fromNode, string toNode)
+        public int GetPathSteps(string fromNode)
         {
             var steps = 0;
             string[] nextDirections = nodes[fromNode];
@@ -36,7 +38,7 @@ namespace AdventOfCode2023Day8
             {
                 var next = DIRECTIONS.IndexOf(inputDirectionsList[inputDirectionsIndex]);
                 var nextNode = nodes.First(n => n.Key == nextDirections[next]);
-                if (nextNode.Key == toNode)
+                if (nextNode.Key.Last() == 'Z')
                     found = true;
                 nextDirections = nextNode.Value;
                 steps++;
@@ -46,6 +48,24 @@ namespace AdventOfCode2023Day8
             }
 
             return steps;
+        }
+
+        public string[] GetAllANodes()
+        {
+            return nodes.Where(n => n.Key.IndexOf("A") != -1).Select(n => n.Key).ToArray();
+        }
+
+        public BigInteger GetPathStepsPart2()
+        {
+            List<int> stepsList = GetAllANodes().Select(GetPathSteps).OrderDescending().ToList();
+            var myNumber = stepsList.First();
+            BigInteger finalAnswer = myNumber;
+            stepsList = stepsList.Skip(1).ToList();
+            while (stepsList.Any(s => finalAnswer % s != 0))
+            {
+                finalAnswer += myNumber;
+            }
+            return finalAnswer;
         }
     }
 }
