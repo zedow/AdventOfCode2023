@@ -23,8 +23,8 @@ public class Galaxy
 
         var emptyRows = EmptyRows(map).ToHashSet();
         var emptyColumns = EmptyColumns(map).ToHashSet();
-        Func<int,bool> isRowExpanded = index => emptyRows.Contains(index);
-        Func<int, bool> isColumnExpanded = index => emptyColumns.Contains(index);
+        Func<int,bool> isRowExpanded = emptyRows.Contains;
+        Func<int, bool> isColumnExpanded = emptyColumns.Contains;
 
         List<Vector2> galaxies = (
             from irow in Enumerable.Range(0, map.Length)

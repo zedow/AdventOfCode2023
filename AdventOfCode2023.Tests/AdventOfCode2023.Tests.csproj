@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdventOfCode2023Day10\AdventOfCode2023Day10.csproj" />
     <ProjectReference Include="..\AdventOfCode2023Day11\AdventOfCode2023Day11.csproj" />
     <ProjectReference Include="..\AdventOfCode2023Day1\AdventOfCode2023Day1.csproj" />
     <ProjectReference Include="..\AdventOfCode2023Day3\AdventOfCode2023Day3.csproj" />
@@ -28,6 +27,7 @@
     <ProjectReference Include="..\AdventOfCode2023Day8\AdventOfCode2023Day8.csproj" />
     <ProjectReference Include="..\AdventOfCode2023Day9\AdventOfCode2023Day9.csproj" />
     <ProjectReference Include="..\AdventOfCodeDay2\AdventOfCodeDay2.csproj" />
+    <ProjectReference Include="..\AdventOfCode\AdventOfCode.csproj" />
   </ItemGroup>
 
 </Project>

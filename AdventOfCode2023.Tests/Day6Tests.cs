@@ -16,7 +16,7 @@ namespace AdventOfCode2023.Tests
 
             (double, double) bestAvailableRange = race.FindIntervalsOfPossibleValuesToBeatGivenDistance(430);
 
-            Assert.That(bestAvailableRange, Is.EqualTo((50, 9)));
+            Assert.That(bestAvailableRange, Is.EqualTo((9d,50d)));
         }
 
         [Test]

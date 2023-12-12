@@ -1,5 +1,4 @@
 ﻿using AdventOfCode2023Day11;
-using Kernel;
 
 string filePath = "../../../input.txt";
 string inputContent = File.ReadAllText(filePath);
