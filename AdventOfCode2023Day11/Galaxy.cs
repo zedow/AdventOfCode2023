@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2023Day11;
 
-using Map = Dictionary<Vector2, char>;
 public class Galaxy
 {
     public static string[] ParseMap(string input)
@@ -22,8 +21,10 @@ public class Galaxy
     {
         var map = ParseMap(input);
 
-        Func<int,bool> isRowExpanded = index => EmptyRows(map).Contains(index);
-        Func<int, bool> isColumnExpanded = index => EmptyColumns(map).Contains(index);
+        var emptyRows = EmptyRows(map).ToHashSet();
+        var emptyColumns = EmptyColumns(map).ToHashSet();
+        Func<int,bool> isRowExpanded = index => emptyRows.Contains(index);
+        Func<int, bool> isColumnExpanded = index => emptyColumns.Contains(index);
 
         List<Vector2> galaxies = (
             from irow in Enumerable.Range(0, map.Length)
