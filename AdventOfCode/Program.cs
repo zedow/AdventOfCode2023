@@ -8,8 +8,8 @@ var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(ty
 
 var challengeToRun = "Pipe maze";
 
-Type type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute)) 
-    && t.GetCustomAttribute<ChallengeAttribute>().GetName() == challengeToRun);
+Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute)) 
+    && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun);
 
 if (type == null)
     throw new Exception("Challenge does not exist");
