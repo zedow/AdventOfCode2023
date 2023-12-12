@@ -10,11 +10,14 @@ namespace Kernel
     public class ChallengeAttribute : System.Attribute
     {
         private string _name;
-        public ChallengeAttribute(string name) 
+        private string _inputFilePath;
+        public ChallengeAttribute(string name,string inputFilePath) 
         {
             _name = name;
+            _inputFilePath = inputFilePath;
         }
 
         public string GetName() => _name;
+        public string GetInputFilePath() => _inputFilePath;
     }
 }

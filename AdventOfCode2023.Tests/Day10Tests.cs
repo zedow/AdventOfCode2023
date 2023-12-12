@@ -22,12 +22,22 @@ namespace AdventOfCode2023.Tests
                 ..........";
 
         [Test]
-        public void Should_return_false_if_the_tile_can_squeeze_between_pipes()
+        public void Should_return_start_tile_possible_directions()
         {
             string[] mapAsArray = squeezeMap.Split("\r\n").Select(str => str.Trim()).ToArray();
             var pipeMaze = new PipeMaze();
 
-            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(mapAsArray, new (int, int)[] { Direction.Right, Direction.Down });
+            (int,int)[] startDirections = pipeMaze.GetSDirections(pipeMaze.ParseMap(mapAsArray));
+
+            Assert.That(startDirections, Is.EqualTo(new (int, int)[] { Direction.Right,Direction.Down}));
+        }
+
+        [Test]
+        public void Should_return_false_if_the_tile_can_squeeze_between_pipes()
+        {
+            var pipeMaze = new PipeMaze();
+
+            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(squeezeMap);
 
             Assert.That(numberOfTilesEnclosed,Is.EqualTo(4));
         }
@@ -41,10 +51,9 @@ namespace AdventOfCode2023.Tests
                 SJ.L7
                 |F--J
                 LJ...";
-            var mapAsArray = currentMap.Split("\r\n").Select(str => str.Trim()).ToArray();
             var pipeMaze = new PipeMaze();
 
-            var numberOfTilesEnclosed = pipeMaze.SolvePartOne(mapAsArray, new (int, int)[] { Direction.Right, Direction.Down });
+            var numberOfTilesEnclosed = pipeMaze.SolvePartOne(currentMap);
 
             Assert.That(numberOfTilesEnclosed, Is.EqualTo(8));
         }
@@ -62,10 +71,9 @@ namespace AdventOfCode2023.Tests
                 .|..||..|.
                 .L--JL--J.
                 ..........";
-            var mapAsArray = currentMap.Split("\r\n").Select(str => str.Trim()).ToArray();
             var pipeMaze = new PipeMaze();
 
-            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(mapAsArray, new (int, int)[] { Direction.Right, Direction.Down });
+            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(currentMap);
 
             Assert.That(numberOfTilesEnclosed, Is.EqualTo(4));
         }
@@ -84,10 +92,9 @@ namespace AdventOfCode2023.Tests
                 .....|FJLJ|FJ|F7|.LJ
                 ....FJL-7.||.||||...
                 ....L---J.LJ.LJLJ...";
-            var mapAsArray = currentMap.Split("\r\n").Select(str => str.Trim()).ToArray();
             var pipeMaze = new PipeMaze();
 
-            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(mapAsArray, new (int, int)[] { Direction.Right, Direction.Down });
+            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(currentMap);
 
             Assert.That(numberOfTilesEnclosed, Is.EqualTo(8));
         }
@@ -106,10 +113,9 @@ namespace AdventOfCode2023.Tests
                 7-L-JL7||F7|L7F-7F7|
                 L.L7LFJ|||||FJL7||LJ
                 L7JLJL-JLJLJL--JLJ.L";
-            var mapAsArray = currentMap.Split("\r\n").Select(str => str.Trim()).ToArray();
             var pipeMaze = new PipeMaze();
 
-            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(mapAsArray, new (int, int)[] { Direction.Left, Direction.Down });
+            var numberOfTilesEnclosed = pipeMaze.SolvePartTwo(currentMap);
 
             Assert.That(numberOfTilesEnclosed, Is.EqualTo(10));
         }
