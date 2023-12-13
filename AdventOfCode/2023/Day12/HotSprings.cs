@@ -27,14 +27,13 @@ namespace AdventOfCode._2023.Day12
         public object SolvePartTwo(string input)
         {
             var arrayInput = input.Split("\n").Select(i => i.Split(" "));
-            double sum = 0;
+            long sum = 0;
             foreach(var row in arrayInput)
             {
-                var springs = row[0].Trim().ToList();
-                var rules = row[1].Trim().Split(",").Where(i => i != "").Select(int.Parse).ToArray();
-                var springsUnfold = springs.Concat(new char[] { '?' }).Concat(springs).ToArray();
-                var rulesUnfold = rules.Concat(rules).ToArray();
-                sum += GetFiveUnfoldsArrangements(springs.ToArray(), rules, springsUnfold, rulesUnfold);
+                var springs = row[0];
+                var rules = row[1];
+                sum += Convert.ToInt64(GetFiveUnfoldsArrangements(springs,
+                    rules.Split(",").Where(i => i != "").Select(int.Parse).ToArray()));
             }
 
             return sum;
@@ -66,12 +65,12 @@ namespace AdventOfCode._2023.Day12
 
 
         // On utilise ici la progression géométrique avec un calcul de facteur de croissance
-        public double GetFiveUnfoldsArrangements(char[] input, int[] rules, char[] inputGrowthOne, int[] rulesGrowthOne)
+        public double GetFiveUnfoldsArrangements(string input, int[] rules)
         {
-            var firstRun = RecursivelyFindEveryPossibilities(input, rules);
-            var secondRun = RecursivelyFindEveryPossibilities(inputGrowthOne, rulesGrowthOne);
+            var firstRun = RecursivelyFindEveryPossibilities(input.ToArray(), rules);
+            var secondRun = RecursivelyFindEveryPossibilities((input + "?").ToArray(), rules);
             // le facteur de croissance est égal au nombre de possibilités après la première croissance divisé par le nombre de possibilité avec 0 croissance
-            var growthFactor = secondRun / firstRun;
+            var growthFactor = secondRun == firstRun ? secondRun * 2 : secondRun;
             // a×r^(n-1) avec = 5 pour ce sujet
             return firstRun * Math.Pow(growthFactor, 4);
         }

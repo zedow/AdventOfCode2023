@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using AdventOfCode._2023.Day13;
 using AdventOfCode.Kernel;
 using Kernel;
 using System.Reflection;
@@ -6,7 +7,7 @@ using System.Reflection;
 
 var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ChallengeAttribute)));
 
-var challengeToRun = "Hot springs";
+var challengeToRun = "Point of Incidence";
 
 Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute)) 
     && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun);
@@ -14,10 +15,11 @@ Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.Is
 if (type == null)
     throw new Exception("Challenge does not exist");
 
-var solver = (IChallenge)Activator.CreateInstance(type)!;
+//var solver = (IChallenge)Activator.CreateInstance(type)!;
+var solver = new Mirros();
 var filePath = File.ReadAllText("..\\..\\..\\" + type.GetCustomAttribute<ChallengeAttribute>()!.GetInputFilePath());
 
-//Console.WriteLine(solver.SolvePartOne(filePath));
+Console.WriteLine(solver.SolvePartOne(filePath));
 
-Console.WriteLine(solver.SolvePartTwo(filePath));
+//Console.WriteLine(solver.SolvePartTwo(filePath));
 
