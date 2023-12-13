@@ -15,8 +15,13 @@ namespace AdventOfCode._2023.Day12
     {
         public object SolvePartOne(string input)
         {
-            var arrayInput = input.Split("\n");
-            return 0;
+            var arrayInput = input.Split("\n").Select(i => i.Split(" "));
+            return arrayInput.Select(input => 
+                RecursivelyFindEveryPossibilities(
+                    input[0].Trim().ToCharArray(), 
+                    input[1].Trim().Split(",").Where(i => i != "").Select(i => int.Parse(i)).ToArray()
+                )
+            ).Sum();
         }
 
         public object SolvePartTwo(string input)
@@ -24,47 +29,42 @@ namespace AdventOfCode._2023.Day12
             throw new NotImplementedException();
         }
 
-        public int FindAnyArrangementsRecursively(char[] row,int[] damaged, int startIndex, int rowIndex, List<int> placed)
+        public int RecursivelyFindEveryPossibilities(char[] input, int[] rules)
         {
-            Console.WriteLine(new string(row) + " | [" + string.Join(string.Empty, damaged.Select(d => d.ToString() + ",")) + "] | " + startIndex + " | " + rowIndex);
-            var currentRowIndex = rowIndex;
-            char[] currentRow = (char[])row.Clone();
-            var hasToCheck = true;
-            for (int i = 0; i < damaged[startIndex]; i++)
+            var total = 0;
+            if (input.Contains('?') == false)
             {
-                if (currentRow[rowIndex + i] == '.' || (currentRow[rowIndex + i] == '#' && placed.Contains(rowIndex + i)))
+                bool isValid = IsValid(input, rules);
+                return isValid  ? 1 : 0;
+            }
+
+            var index = 0;
+            for(; index < input.Length; index++)
+            {
+                if (input[index] == '?')
                 {
-                    hasToCheck = false;
+                    input[index] = '#';
                     break;
                 }
-                currentRow[rowIndex + i] = '#';
-                placed.Add(rowIndex + i);
             }
-            if (hasToCheck && IsValid(currentRow,damaged))
-            {
-                if (startIndex == damaged.Length - 1)
-                    return 1;
-                else
-                    return FindAnyArrangementsRecursively(currentRow, damaged, startIndex + 1, 0, placed);
-            }
-
-            if (currentRowIndex + damaged[startIndex] < row.Length)
-                return FindAnyArrangementsRecursively(row, damaged, startIndex, currentRowIndex + 1, placed);
-
-            return 0;
+            total += RecursivelyFindEveryPossibilities((char[])input.Clone(), rules);
+            input[index] = '.';
+            total += RecursivelyFindEveryPossibilities((char[])input.Clone(), rules);
+            return total;
         }
 
-        public bool IsValid(char[] rowState, int[] damaged)
+        public bool IsValid(char[] rowState, int[] rulesToPlace)
         {
+            var rulesToDecrement = ((int[])rulesToPlace.Clone()).ToList();
             var asString = new string(rowState);
             var regexPattern = "(-?\\#{1,32} ?)";
-            var matches = Regex.Matches(asString, regexPattern);
-            if (matches.Any(m => damaged.Any(d => d == m.Length) == false) || matches.Count() > damaged.Length)
+            var matchs = Regex.Matches(asString, regexPattern);
+            if (matchs.Count != rulesToPlace.Length)
                 return false;
- 
-            foreach(var damage in damaged)
+
+            for(int i = 0; i < rulesToDecrement.Count(); i++)
             {
-                if (matches.Count(m => m.Value.Length == damage) > damaged.Count(d => d == damage))
+                if (rulesToDecrement[i] != matchs.ElementAt(i).Value.Length)
                     return false;
             }
 

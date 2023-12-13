@@ -9,26 +9,38 @@ namespace AdventOfCode2023.Tests._2023.Day12
 {
     public class Day12Tests
     {
-        [Test]
-        public void should_return_one_when_an_arrangement_is_possible()
+        [TestCase("???.###", new int[] {1, 1,3}, 1)]
+        [TestCase("?#?#?#?#?#?#?#?", new int[] { 1,3, 1, 6 }, 1)]
+        [TestCase("?###????????", new int[] { 3, 2, 1 }, 10)]
+        public void should_return_one_when_an_arrangement_is_possible(string input, int[] rules, int expectedResult)
         {
-            var input = @"???.###";
             var hotSprings = new HotSprings();
 
-            int solution = hotSprings.FindAnyArrangementsRecursively(input.ToCharArray(),new int[] {1,1,3},0,0,new List<int>());
+            int solutions = hotSprings.RecursivelyFindEveryPossibilities(input.ToCharArray(), rules);
 
-            Assert.That(solution, Is.EqualTo(1));
+            Assert.That(solutions, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void should_return_one_when_an_arrangement_is_possible_zebi()
+        {
+            var input = "?###????????";
+            var hotSprings = new HotSprings();
+
+            int solutions = hotSprings.RecursivelyFindEveryPossibilities(input.ToCharArray(), new int[] { 3, 2, 1 });
+
+            Assert.That(solutions, Is.EqualTo(10));
         }
 
         [Test]
         public void SolvePartOne()
         {
             var input = @"???.### 1,1,3
-                    .??..??...?##. 1,1,3
-                    ?#?#?#?#?#?#?#? 1,3,1,6
-                    ????.#...#... 4,1,1
-                    ????.######..#####. 1,6,5
-                    ?###???????? 3,2,1";
+.??..??...?##. 1,1,3
+?#?#?#?#?#?#?#? 1,3,1,6
+????.#...#... 4,1,1
+????.######..#####. 1,6,5
+?###???????? 3,2,1";
             var hotSprings = new HotSprings();
 
             int solution = (int)hotSprings.SolvePartOne(input);
