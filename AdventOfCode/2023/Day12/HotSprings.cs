@@ -26,7 +26,18 @@ namespace AdventOfCode._2023.Day12
 
         public object SolvePartTwo(string input)
         {
-            throw new NotImplementedException();
+            var arrayInput = input.Split("\n").Select(i => i.Split(" "));
+            double sum = 0;
+            foreach(var row in arrayInput)
+            {
+                var springs = row[0].Trim().ToList();
+                var rules = row[1].Trim().Split(",").Where(i => i != "").Select(int.Parse).ToArray();
+                var springsUnfold = springs.Concat(new char[] { '?' }).Concat(springs).ToArray();
+                var rulesUnfold = rules.Concat(rules).ToArray();
+                sum += GetFiveUnfoldsArrangements(springs.ToArray(), rules, springsUnfold, rulesUnfold);
+            }
+
+            return sum;
         }
 
         public int RecursivelyFindEveryPossibilities(char[] input, int[] rules)
@@ -53,6 +64,18 @@ namespace AdventOfCode._2023.Day12
             return total;
         }
 
+
+        // On utilise ici la progression géométrique avec un calcul de facteur de croissance
+        public double GetFiveUnfoldsArrangements(char[] input, int[] rules, char[] inputGrowthOne, int[] rulesGrowthOne)
+        {
+            var firstRun = RecursivelyFindEveryPossibilities(input, rules);
+            var secondRun = RecursivelyFindEveryPossibilities(inputGrowthOne, rulesGrowthOne);
+            // le facteur de croissance est égal au nombre de possibilités après la première croissance divisé par le nombre de possibilité avec 0 croissance
+            var growthFactor = secondRun / firstRun;
+            // a×r^(n-1) avec = 5 pour ce sujet
+            return firstRun * Math.Pow(growthFactor, 4);
+        }
+
         public bool IsValid(char[] rowState, int[] rulesToPlace)
         {
             var rulesToDecrement = ((int[])rulesToPlace.Clone()).ToList();
@@ -70,6 +93,5 @@ namespace AdventOfCode._2023.Day12
 
             return true;
         }
-
     }
 }

@@ -17,7 +17,7 @@ if (type == null)
 var solver = (IChallenge)Activator.CreateInstance(type)!;
 var filePath = File.ReadAllText("..\\..\\..\\" + type.GetCustomAttribute<ChallengeAttribute>()!.GetInputFilePath());
 
-Console.WriteLine(solver.SolvePartOne(filePath));
+//Console.WriteLine(solver.SolvePartOne(filePath));
 
 Console.WriteLine(solver.SolvePartTwo(filePath));
 

@@ -47,5 +47,16 @@ namespace AdventOfCode2023.Tests._2023.Day12
 
             Assert.That(solution, Is.EqualTo(21));
         }
+
+        [Test]
+        public void should_return_number_of_arrangements_five_unfolds_by_calculating_a_growth_factor()
+        {
+            var input = "?###????????";
+            var inputTwo = "?###??????????###????????";
+            var hotSprings = new HotSprings();
+
+            var growth = hotSprings.GetFiveUnfoldsArrangements(input.ToCharArray(), new int[] { 3, 2, 1 }, inputTwo.ToCharArray(), new int[] { 3, 2, 1, 3, 2, 1 });
+            Assert.That(growth, Is.EqualTo(506250));
+        }
     }
 }
