@@ -7,7 +7,7 @@ using System.Reflection;
 
 var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ChallengeAttribute)));
 
-var challengeToRun = "Point of Incidence";
+var challengeToRun = "Parabolic Reflector Dish";
 
 Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute)) 
     && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun);
@@ -15,8 +15,7 @@ Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.Is
 if (type == null)
     throw new Exception("Challenge does not exist");
 
-//var solver = (IChallenge)Activator.CreateInstance(type)!;
-var solver = new Mirros();
+var solver = (IChallenge)Activator.CreateInstance(type)!;
 var filePath = File.ReadAllText("..\\..\\..\\" + type.GetCustomAttribute<ChallengeAttribute>()!.GetInputFilePath());
 
 Console.WriteLine(solver.SolvePartOne(filePath));
