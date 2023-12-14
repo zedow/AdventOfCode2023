@@ -22,64 +22,70 @@ public class Dish : IChallenge
     public static Complex Down = Complex.ImaginaryOne;
     public static Complex Left = -Complex.One;
     public static Complex Right = Complex.One;
+
+    public static int MapWidth = 10;
+    public static int MapHeight = 10;
+    public string MapToString(Map map)
+    {
+        var stringMap = "";
+        for (int i = 0; i < MapHeight; i++)
+        {
+            string str = "";
+            for (int y = 0; y < MapWidth; y++)
+            {
+                str += map[new Complex(y, i)];
+            }
+            if(i < (MapHeight -1))
+                str += "\r\n";
+            stringMap += str;
+        }
+        return stringMap;
+    }
+
+    int Measure(char[][] map) =>
+       map.Select((row, irow) => (MapWidth - irow) * row.Count(ch => ch == 'O')).Sum();
+
     public object SolvePartOne(string input)
     {
-        return MoveRoundedRocks(ParseMap(input), Up);
+        var map = MoveRoundedRocks(ParseMap(input), Up);
+        return Measure(MapToString(map).Split('\n').Select(line => line.ToCharArray()).ToArray());
     }
 
     public object SolvePartTwo(string input)
     {
         var map = ParseMap(input);
         List<string> history = new List<string>();
-        for(int i = 0; i < 1000000000; i++)
+        var count = 1000000000;
+        while (count > 0)
         {
-            for(int y = 0; y < 4; y++)
-            {
-                var zebi = MoveRoundedRocks(map, Up);
-                var zobi = MoveRoundedRocks(map, Left);
-                var ebi = MoveRoundedRocks(map, Down);
-                var aa = MoveRoundedRocks(map, Right);
-                Console.WriteLine(zebi + " " + zobi + " " + ebi + " " + aa);
-            }
-            var mapString = new string(((char[])map.Values.ToArray()));
+            map = MoveRoundedRocks(map, Up);
+            map = MoveRoundedRocks(map, Left);
+            map = MoveRoundedRocks(map, Down);
+            map = MoveRoundedRocks(map, Right);
+            count--;
+            var mapString = MapToString(map);
             var idx = history.IndexOf(mapString);
             if (idx < 0)
                 history.Add(mapString);
             else
             {
                 var loopLength = history.Count - idx;
-                var remainder = i % loopLength;
-                //return MoveRoundedRocks(ParseMap(history[idx + remainder]),Up);
-                return MoveRoundedRocks(map, Up);
+                var remainder = count % loopLength;
+                return Measure(history[idx + remainder].Split('\n').Select(line => line.ToCharArray()).ToArray());
             }
         }
         
         return 0;
     }
 
-    public int MoveRoundedRocks(Map map, Complex direction)
+    public Map MoveRoundedRocks(Map map, Complex direction)
     {
-        var load = 0;
-        var verticalLimit = map.Max(m => m.Key.Imaginary) + 1;
-        var horizontalLimit = map.Max(m => m.Key.Real) + 1;
         var rocks = map.Where(m => m.Value != '#' && m.Value != '.').ToList();
         foreach (var roundedRocks in rocks)
         {
             var position = roundedRocks.Key;
-            // must be equal 1 so current position is count
-            var numberOfTilesAtOppositeDirection = 1;
-            for(; ; )
-            {
-                if (map.ContainsKey(position - direction) == false)
-                    break;
-
-                position -= direction;
-                numberOfTilesAtOppositeDirection++;
-            }
-            position = roundedRocks.Key;
             // store the last valid position to prevent other rounded rock overwrite
             var validPosition = position;
-            var validNumberOfTilesAtOppositeDirection = numberOfTilesAtOppositeDirection;
             for (; ; )
             {
                 if (map.ContainsKey(position + direction) == false)
@@ -87,7 +93,6 @@ public class Dish : IChallenge
                     if (map[position - direction] == '.')
                     {
                         position = validPosition;
-                        validNumberOfTilesAtOppositeDirection = numberOfTilesAtOppositeDirection;
                     }
                     break;
                 }
@@ -100,49 +105,25 @@ public class Dish : IChallenge
 
                 if (map[position + direction] == '.')
                 {
-                    validNumberOfTilesAtOppositeDirection = numberOfTilesAtOppositeDirection + 1;
                     validPosition = position + direction;
                 }
 
                 position += direction;
-                numberOfTilesAtOppositeDirection++;
             }
-            int diff = (int)(direction.Real != 0 ? direction.Real == -1 ? horizontalLimit - Math.Abs(validPosition.Real) : validPosition.Real + 1
-               : direction.Imaginary == -1 ? verticalLimit - Math.Abs(validPosition.Imaginary) : validPosition.Imaginary + 1);
             if (validPosition != roundedRocks.Key)
             {
-                map[validPosition] = diff == 10 ? 'X' : diff.ToString().ToCharArray()[0];
+                map[validPosition] = 'O';
                 map[roundedRocks.Key] = '.';
             }
-            else
-            {
-                map[roundedRocks.Key] = diff == 10 ? 'X' : diff.ToString().ToCharArray()[0];
-            }
-           
-            load += diff;
         }
-        //DisplayMap(map);
-        return load;
-    }
-
-    public void DisplayMap(Map map)
-    {
-        for(int i = 0; i < 10; i ++)
-        {
-            string str = "";
-            for (int y = 0; y < 10; y ++)
-            {
-                str += map[new Complex(y, i)];
-            }
-            Console.WriteLine(str);
-            
-        }
-        Console.WriteLine("--------------------------------------------------");
+        return map;
     }
 
     public Map ParseMap(string input)
     {
         var inputArray = input.Split("\r\n");
+        MapWidth = inputArray[0].Length;
+        MapHeight = inputArray.Length;
         return (
             from irow in Enumerable.Range(0, inputArray.Length)
             from icol in Enumerable.Range(0, inputArray[0].Length)
