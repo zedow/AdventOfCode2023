@@ -25,22 +25,6 @@ public class Dish : IChallenge
 
     public static int MapWidth = 10;
     public static int MapHeight = 10;
-    public string MapToString(Map map)
-    {
-        var stringMap = "";
-        for (int i = 0; i < MapHeight; i++)
-        {
-            string str = "";
-            for (int y = 0; y < MapWidth; y++)
-            {
-                str += map[new Complex(y, i)];
-            }
-            if(i < (MapHeight -1))
-                str += "\r\n";
-            stringMap += str;
-        }
-        return stringMap;
-    }
 
     int Measure(char[][] map) =>
        map.Select((row, irow) => (MapWidth - irow) * row.Count(ch => ch == 'O')).Sum();
@@ -131,5 +115,22 @@ public class Dish : IChallenge
             let cell = inputArray[irow][icol]
             select new KeyValuePair<Complex,char>(pos,cell)
         ).ToDictionary();
+    }
+
+    public string MapToString(Map map)
+    {
+        var stringMap = "";
+        for (int i = 0; i < MapHeight; i++)
+        {
+            string str = "";
+            for (int y = 0; y < MapWidth; y++)
+            {
+                str += map[new Complex(y, i)];
+            }
+            if (i < (MapHeight - 1))
+                str += "\r\n";
+            stringMap += str;
+        }
+        return stringMap;
     }
 }
