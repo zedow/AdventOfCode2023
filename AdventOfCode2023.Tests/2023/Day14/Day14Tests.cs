@@ -10,25 +10,55 @@ namespace AdventOfCode2023.Tests._2023.Day14
     public class Day14Tests
     {
         [Test]
-        public void ParseMap_should_return_an_string_array_of_input_columns()
-        {
-            var input = File.ReadAllText("../../../2023/Day14/testInput.txt");
-
-            var dish = new Dish();
-            var map = dish.ParseMap(input);
-
-            Assert.That(map[0], Is.EqualTo("OO.O.O..##"));
-        }
-
-        [Test]
         public void Should_return_test_map_load()
         {
             var input = File.ReadAllText("../../../2023/Day14/testInput.txt");
-
             var dish = new Dish();
-            var totalLoad = dish.LoopMapReturnTotalLoad(dish.ParseMap(input));
 
+            var totalLoad = dish.SolvePartOne(input);
             Assert.That(totalLoad, Is.EqualTo(136));
+        }
+
+        [Test]
+        public void Should_return_rounded_rocks_load_tilting_dish_left()
+        {
+            var input = File.ReadAllText("../../../2023/Day14/testInput.txt");
+            var dish = new Dish();
+
+            var totalLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Up);
+            var LeftLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Left);
+            var downLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Down);
+            var rightLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Right);
+            Assert.That(totalLoad, Is.EqualTo(136));
+            Assert.That(LeftLoad, Is.EqualTo(132));
+            Assert.That(downLoad, Is.EqualTo(103));
+            Assert.That(rightLoad, Is.EqualTo(106));
+        }
+
+        [Test]
+        public void Should_return_rounded_rocks_load_tilting_dish_leftee()
+        {
+            var input = File.ReadAllText("../../../2023/Day14/testInput.txt");
+            var dish = new Dish();
+
+            var totalLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Up);
+            var LeftLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Left);
+            var downLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Down);
+            var rightLoad = dish.MoveRoundedRocks(dish.ParseMap(input), Dish.Right);
+            Assert.That(totalLoad, Is.EqualTo(19));
+            Assert.That(LeftLoad, Is.EqualTo(14));
+            Assert.That(downLoad, Is.EqualTo(17));
+            Assert.That(rightLoad, Is.EqualTo(18));
+        }
+
+        [Test]
+        public void Should_return_rounded_rocks_load_part_two()
+        {
+            var input = File.ReadAllText("../../../2023/Day14/testInput.txt");
+            var dish = new Dish();
+
+            var totalLoad = dish.SolvePartTwo(input);
+            Assert.That(totalLoad, Is.EqualTo(64));
         }
     }
 }

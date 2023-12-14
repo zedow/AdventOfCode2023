@@ -20,5 +20,5 @@ var filePath = File.ReadAllText("..\\..\\..\\" + type.GetCustomAttribute<Challen
 
 Console.WriteLine(solver.SolvePartOne(filePath));
 
-//Console.WriteLine(solver.SolvePartTwo(filePath));
+Console.WriteLine(solver.SolvePartTwo(filePath));
 
