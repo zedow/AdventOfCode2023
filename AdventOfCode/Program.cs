@@ -7,7 +7,7 @@ using System.Reflection;
 
 var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ChallengeAttribute)));
 
-var challengeToRun = "Parabolic Reflector Dish";
+var challengeToRun = "Lens Library";
 
 Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute)) 
     && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun);
