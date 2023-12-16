@@ -7,7 +7,7 @@ using System.Reflection;
 
 var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ChallengeAttribute)));
 
-var challengeToRun = "Lens Library";
+var challengeToRun = "The Floor Will Be Lava";
 
 Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute)) 
     && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun);
@@ -20,5 +20,5 @@ var filePath = File.ReadAllText("..\\..\\..\\" + type.GetCustomAttribute<Challen
 
 Console.WriteLine(solver.SolvePartOne(filePath));
 
-Console.WriteLine(solver.SolvePartTwo(filePath));
+//Console.WriteLine(solver.SolvePartTwo(filePath));
 

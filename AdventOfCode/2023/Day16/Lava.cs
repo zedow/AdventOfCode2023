@@ -46,7 +46,14 @@ public class Lava : IChallenge
     {
         var map = ParseMap(input.Split("\r\n"));
         var iteneraries = new List<Itenerary>();
-        SpreadBeamRecursively(map,Right,new Complex(0,0), iteneraries);
+        var queue = new Queue<Itenerary>();
+        queue.Enqueue(new Itenerary(new Complex(0, 0), Right));
+        while(queue.Count > 0)
+        {
+            var toNagivate = queue.Dequeue();
+            SpreadBeamRecursively(map, toNagivate.direction, toNagivate.position, iteneraries, queue);
+        }
+       
         return iteneraries.Select(i => i.position).Distinct().Count();
     }
 
@@ -55,7 +62,7 @@ public class Lava : IChallenge
         throw new NotImplementedException();
     }
 
-    public List<Itenerary> SpreadBeamRecursively(Map map,Complex direction, Complex currentPosition, List<Itenerary> iteneraries)
+    public List<Itenerary> SpreadBeamRecursively(Map map,Complex direction, Complex currentPosition, List<Itenerary> iteneraries, Queue<Itenerary> queue)
     {
         var itenerary = new Itenerary(currentPosition, direction);
         if (map.ContainsKey(currentPosition) == false || iteneraries.Contains(itenerary)) {
@@ -67,15 +74,15 @@ public class Lava : IChallenge
         else if (map[currentPosition] == '-' && (direction != Left && direction != Right))
         {
             direction = Left;
-            SpreadBeamRecursively(map, Right, currentPosition + Right, iteneraries);
+            queue.Enqueue(new Itenerary(currentPosition + Right, Right));
         }
         else if(map[currentPosition] == '|' && (direction != Up && direction != Down))
         {
             direction = Up;
-            SpreadBeamRecursively(map, Down, currentPosition + Down, iteneraries);
+            queue.Enqueue(new Itenerary(currentPosition + Down, Down));
         }
 
-        SpreadBeamRecursively(map, direction, currentPosition + direction, iteneraries);
+        SpreadBeamRecursively(map, direction, currentPosition + direction, iteneraries, queue);
         return iteneraries;
     }
 
