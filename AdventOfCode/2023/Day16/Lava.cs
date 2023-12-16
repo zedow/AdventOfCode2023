@@ -59,7 +59,34 @@ public class Lava : IChallenge
 
     public object SolvePartTwo(string input)
     {
-        throw new NotImplementedException();
+        var map = ParseMap(input.Split("\r\n"));
+        var beamEnergisedTiles = new List<int>();
+        var size = map.Keys.Max(m => m.Real);
+        for (int i = 0; i < size; i++)
+        {
+            var config = new List<Itenerary>
+            {
+                new Itenerary(new Complex(i, 0), Down),
+                new Itenerary(new Complex(i, size), Up),
+                new Itenerary(new Complex(0, i), Right),
+                new Itenerary(new Complex(size, i), Left)
+            };
+            foreach (var c in config)
+            {
+                var iteneraries = new List<Itenerary>();
+                var queue = new Queue<Itenerary>();
+                queue.Enqueue(c);
+                while (queue.Count > 0)
+                {
+                    var toNagivate = queue.Dequeue();
+                    SpreadBeamRecursively(map, toNagivate.direction, toNagivate.position, iteneraries, queue);
+                }
+
+                beamEnergisedTiles.Add(iteneraries.Select(i => i.position).Distinct().Count());
+            }
+            
+        }
+        return beamEnergisedTiles.Max();
     }
 
     public List<Itenerary> SpreadBeamRecursively(Map map,Complex direction, Complex currentPosition, List<Itenerary> iteneraries, Queue<Itenerary> queue)
@@ -84,20 +111,6 @@ public class Lava : IChallenge
 
         SpreadBeamRecursively(map, direction, currentPosition + direction, iteneraries, queue);
         return iteneraries;
-    }
-
-    public void Display(Map map)
-    {
-        var row = 0;
-        for(int i = 0; i <= map.Keys.Max(m => m.Real); i++)
-        {
-            var str = "";
-            for(int y = 0; y <= map.Keys.Max(k => k.Imaginary); y++)
-            {
-                str += map[new Complex(y, i)];
-            }
-            Console.WriteLine(str);
-        }
     }
 
     public Map ParseMap(string[] input)

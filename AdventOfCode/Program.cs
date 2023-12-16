@@ -2,6 +2,7 @@
 using AdventOfCode._2023.Day13;
 using AdventOfCode.Kernel;
 using Kernel;
+using System.Diagnostics;
 using System.Reflection;
 
 
@@ -18,7 +19,19 @@ if (type == null)
 var solver = (IChallenge)Activator.CreateInstance(type)!;
 var filePath = File.ReadAllText("..\\..\\..\\" + type.GetCustomAttribute<ChallengeAttribute>()!.GetInputFilePath());
 
-Console.WriteLine(solver.SolvePartOne(filePath));
+var stopWatch = new Stopwatch();
 
-//Console.WriteLine(solver.SolvePartTwo(filePath));
+stopWatch.Start();
+
+//Console.WriteLine(solver.SolvePartOne(filePath));
+
+Console.WriteLine(solver.SolvePartTwo(filePath));
+
+stopWatch.Stop();
+var ts = stopWatch.Elapsed;
+string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+    ts.Hours, ts.Minutes, ts.Seconds,
+    ts.Milliseconds / 10);
+
+Console.WriteLine("Challenge sovlve in " + elapsedTime);
 
