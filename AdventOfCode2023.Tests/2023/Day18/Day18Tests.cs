@@ -35,15 +35,15 @@ namespace AdventOfCode2023.Tests._2023.Day18
         }
 
         [Test]
-        public void DigOutInterior_should_return_a_map_62_length()
+        public void CountVerticeInPolygon_should_return_a_map_62_length()
         {
             var input = File.ReadAllText("../../../2023/Day18/input.txt");
 
             var lagoon = new LavaLagoon();
             var map = lagoon.Dig(lagoon.ParseInput(input));
-            var digMap = lagoon.DigOutInterior(map);
+            double verticesInPolygon = lagoon.CountVerticeInPolygon(map);
 
-            Assert.That(digMap.Count(), Is.EqualTo(62));
+            Assert.That(verticesInPolygon + map.Count(), Is.EqualTo(62));
         }
     }
 }

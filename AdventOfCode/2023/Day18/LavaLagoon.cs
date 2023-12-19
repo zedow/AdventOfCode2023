@@ -17,12 +17,14 @@ public class LavaLagoon : IChallenge
 {
     public object SolvePartOne(string input)
     {
-        return DigOutInterior(Dig(ParseInput(input))).Count();
+        Console.WriteLine(Dig(ParseInput(input)).Count());
+        return CountVerticeInPolygon(Dig(ParseInput(input)));
     }
 
     public object SolvePartTwo(string input)
     {
-        return DigOutInterior(Dig(ParseInput(input))).Count();
+        var map = Dig(ParseInput(input));
+        return CountVerticeInPolygon(map) + map.Count();
     }
 
     public Map Dig(List<DigPlan> plans)
@@ -44,46 +46,24 @@ public class LavaLagoon : IChallenge
         return lagoon;
     }
 
-    // Pick's theorem & Shoelace formula to apply for this
-    public Map DigOutInterior(Map map)
+    public double CountVerticeInPolygon(Map map)
     {
-        Console.WriteLine(map.MinBy(m => m.Key.Imaginary).Key.Imaginary);
-        Console.WriteLine(map.MinBy(m => m.Key.Real).Key.Real);
-        var text = "";
-        for (double i = map.MinBy(m => m.Key.Imaginary).Key.Imaginary; i <= map.MaxBy(m => m.Key.Imaginary).Key.Imaginary; i++)
+        // Shoelace formula to find area of the polygon
+        var sum1 = 0;
+        var sum2 = 0;
+        for(int i = map.Count- 1; i > 0; i--)
         {
-            Complex? lastEdgePosition = null;
-            int numberOfEdgeMet = 0;
-            string color = "";
-            string line = "";
-            for(double y = map.MinBy(m => m.Key.Real).Key.Real; y <= map.MaxBy(m => m.Key.Real).Key.Real; y++)
-            {
-                var position = new Complex(y, i);
-                if (map.ContainsKey(position))
-                {
-                    if (lastEdgePosition == null || (position - lastEdgePosition) != Complex.One)
-                    {
-                        numberOfEdgeMet++;
-                    }
-
-                    lastEdgePosition = position;
-                    line += "#";
-                    color = map[position];
-                }
-                else if (numberOfEdgeMet != 4 && numberOfEdgeMet % 2 != 0)
-                {
-                    map.Add(position, color);
-                    line += "@";
-                }
-                else
-                    line += ".";
-            }
-            text += line += "\r\n";
+            sum1 = sum1 + (int)(map.ElementAt(i).Key.Real * map.ElementAt(i- 1).Key.Imaginary);
+            sum2 = sum2 + (int)(map.ElementAt(i).Key.Imaginary * map.ElementAt(i - 1).Key.Real);
         }
 
+        sum1 = sum1 + (int)(map.ElementAt(0).Key.Real * map.ElementAt(map.Count() - 1).Key.Imaginary);
+        sum2 = sum2 + (int)(map.ElementAt(map.Count() - 1).Key.Real * map.ElementAt(0).Key.Imaginary);
 
-        File.AppendAllLines("..\\..\\..\\2023\\Day18\\output.txt", text.Split("\r\n"));
-        return map;
+        var area = Math.Abs(sum1 - sum2) / 2;
+
+        // We want to find i with A = i + b/2  - 1 (Pick's theorem)
+        return area - (0.5 * map.Count()) + 1;
     }
 
     public Complex TransposeDirection(string direction)
