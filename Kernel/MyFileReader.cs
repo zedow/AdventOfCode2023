@@ -47,7 +47,7 @@ namespace Kernel
             return Regex.Matches(input, pattern).Select(match => match.Value).ToList();
         }
 
-        public static List<int> ParseIntegersFromStringInputUsingRegex(string input)
+        public static List<int> ParseIntegers(string input)
         {
             string pattern = @"(-?\d{1,32} ?)";
             var list = new List<int>();

@@ -9,7 +9,7 @@ using System.Reflection;
 var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ChallengeAttribute)));
 
 
-var challengeToRun = "Lavaduct Lagoon";
+var challengeToRun = "Sand Slabs";
 
 Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute)) 
     && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun);
@@ -26,7 +26,7 @@ stopWatch.Start();
 
 Console.WriteLine(solver.SolvePartOne(filePath));
 
-//Console.WriteLine(solver.SolvePartTwo(filePath));
+Console.WriteLine(solver.SolvePartTwo(filePath));
 
 stopWatch.Stop();
 var ts = stopWatch.Elapsed;

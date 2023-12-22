@@ -6,7 +6,7 @@ string[] inputContent = new MyFileReader().ReadFile(filePath);
 List<Hand> hands = inputContent
     .Select(input => {
         var splitInput = input.Split(' ');
-        return new Hand(CamelCards.GetHandStrength(splitInput[0]), MyFileReader.ParseIntegersFromStringInputUsingRegex(splitInput[1]).First());
+        return new Hand(CamelCards.GetHandStrength(splitInput[0]), MyFileReader.ParseIntegers(splitInput[1]).First());
     })
     .OrderBy(hand => hand.Strength.Item1)
     .ThenBy(hand => hand.Strength.Item2)
@@ -24,7 +24,7 @@ Console.WriteLine("First part total score is :" + total);
 hands = inputContent
     .Select(input => {
         var splitInput = input.Split(' ');
-        return new Hand(CamelCards.GetHandStrength(splitInput[0],true), MyFileReader.ParseIntegersFromStringInputUsingRegex(splitInput[1]).First());
+        return new Hand(CamelCards.GetHandStrength(splitInput[0],true), MyFileReader.ParseIntegers(splitInput[1]).First());
     })
     .OrderBy(hand => hand.Strength.Item1)
     .ThenBy(hand => hand.Strength.Item2)

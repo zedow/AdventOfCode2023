@@ -3,8 +3,8 @@ using Kernel;
 
 string filePath = "../../../input.txt";
 string[] inputContent = new MyFileReader().ReadFile(filePath);
-var times = MyFileReader.ParseIntegersFromStringInputUsingRegex(inputContent[0]);
-var distances = MyFileReader.ParseIntegersFromStringInputUsingRegex(inputContent[1]);
+var times = MyFileReader.ParseIntegers(inputContent[0]);
+var distances = MyFileReader.ParseIntegers(inputContent[1]);
 double total = 1;
 
 for(int i = 0; i< times.Count; i++)

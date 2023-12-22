@@ -71,7 +71,7 @@ public class AplentyWorkflow : IChallenge
         var lines = input.Split("\r\n");
         return (
             from irow in Enumerable.Range(0, lines.Length)
-            let numbers = MyFileReader.ParseIntegersFromStringInputUsingRegex(lines[irow])
+            let numbers = MyFileReader.ParseIntegers(lines[irow])
             select new int[4] { numbers[0], numbers[1], numbers[2], numbers[3] }
         ).ToList();
     }
@@ -99,7 +99,7 @@ public class AplentyWorkflow : IChallenge
     public Operation BuildRule(string rule)
     {
         var operationAndDestination = rule.Split(":");
-        int valueComparison = MyFileReader.ParseIntegersFromStringInputUsingRegex(operationAndDestination[0]).FirstOrDefault();
+        int valueComparison = MyFileReader.ParseIntegers(operationAndDestination[0]).FirstOrDefault();
         if (operationAndDestination.Length == 1)
             return new Operation('r', operationAndDestination[0], 0,'@');
 

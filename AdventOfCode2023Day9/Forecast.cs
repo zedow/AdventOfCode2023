@@ -40,7 +40,7 @@ namespace AdventOfCode2023Day9
 
         private static int[] ParseInput(string input)
         {
-            var values = MyFileReader.ParseIntegersFromStringInputUsingRegex(input);
+            var values = MyFileReader.ParseIntegers(input);
             return values.ToArray();
         }
 
