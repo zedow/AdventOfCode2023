@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace AdventOfCode._2023.Day22;
 
-using BrickSupports = Dictionary<Brick, List<Brick>>;
+using BrickSupports = Dictionary<Brick, HashSet<Brick>>;
 public record Brick(Vector3 Position, Vector3 Depth);
 
 [Challenge("Sand Slabs", "2023/Day22/input.txt")]
@@ -15,11 +15,36 @@ public class SandSlabs : IChallenge
 {
     public object SolvePartOne(string input) => DisintegrateBricks(input).Sum();
 
-    public object SolvePartTwo(string input)
+    public object SolvePartTwo(string input) => ChainDisintegrateBricks(input).Sum();
+
+    // Count falling chain reaction for each disintegrated brick
+    public IEnumerable<int> ChainDisintegrateBricks(string input)
     {
-        throw new NotImplementedException();
+        var bricks = ParseInput(input);
+        var fallenBricks = SimulateGravity(bricks);
+        BrickSupports bricksSupports = GetBricksSupports(fallenBricks);
+        foreach(var brick in fallenBricks)
+        {
+            var queue = new Queue<Brick>();
+            var fallen = new HashSet<Brick>();
+            queue.Enqueue(brick);
+            while(queue.TryDequeue(out var BrickToDestroy))
+            {
+                fallen.Add(BrickToDestroy);
+                // get bricks that have the current brick as a support and all their supports are fallen
+                var bricksAbove = bricksSupports.Where(b => b.Value.Contains(BrickToDestroy) && b.Value.IsSubsetOf(fallen));
+                foreach (var brickAbove in bricksAbove)
+                {
+                    queue.Enqueue(brickAbove.Key);
+                }
+            }
+
+            // minus the disintegated brick
+            yield return fallen.Count() - 1;
+        }
     }
 
+    // Get number of bricks that can be safely disintegrated without chain reaction
     public IEnumerable<int> DisintegrateBricks(string input)
     {
         var bricks = ParseInput(input);
@@ -43,7 +68,8 @@ public class SandSlabs : IChallenge
             float newZ = 1;
             for(int y = 0; y < i; y++)
             {
-                if (DoesBricksMerge(snapshot[i], snapshot[y]))
+                // the brick is lowered to the floor, then raised again as long as it collides with another brick already lowered
+                if (DoesBricksCollide(snapshot[i], snapshot[y]))
                 {
                     newZ = Math.Max(newZ, snapshot[y].Depth.Z + 1);
                 }
@@ -65,18 +91,18 @@ public class SandSlabs : IChallenge
                 snapshot.Where(otherBrick => 
                     otherBrick != brick && 
                     otherBrick.Depth.Z == brick.Position.Z - 1 && 
-                    DoesBricksMerge(brick,otherBrick)
-                ).ToList());
+                    DoesBricksCollide(brick,otherBrick)
+                ).ToHashSet());
         }
         return supports;
     }
 
-    public bool DoesBricksMerge(Brick brickA, Brick brickB)
+    public bool DoesBricksCollide(Brick brickA, Brick brickB)
     {
-        bool doesItMergeOnAxis(float a, float b, float ax, float bx) => (a <= bx && b <= ax);
+        bool doesBricksCollideOnASide(float a, float b, float ax, float bx) => (a <= bx && b <= ax);
 
-        return doesItMergeOnAxis(brickA.Position.X, brickB.Position.X, brickA.Depth.X, brickB.Depth.X)
-                && doesItMergeOnAxis(brickA.Position.Y, brickB.Position.Y, brickA.Depth.Y, brickB.Depth.Y);
+        return doesBricksCollideOnASide(brickA.Position.X, brickB.Position.X, brickA.Depth.X, brickB.Depth.X)
+                && doesBricksCollideOnASide(brickA.Position.Y, brickB.Position.Y, brickA.Depth.Y, brickB.Depth.Y);
     }
 
     public List<Brick> ParseInput(string input)

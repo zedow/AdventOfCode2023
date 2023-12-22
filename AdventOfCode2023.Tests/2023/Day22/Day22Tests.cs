@@ -43,5 +43,16 @@ internal class Day22Tests
 
         Assert.That(countBricksThatCanBeDisintegrated, Is.EqualTo(5));
     }
+
+    [Test]
+    public void SolveParttwo_should_return_7()
+    {
+        var input = File.ReadAllText("../../../2023/Day22/input.txt");
+        var sandSlabs = new SandSlabs();
+
+        var countBricksThatCanBeDisintegrated = sandSlabs.SolvePartTwo(input);
+
+        Assert.That(countBricksThatCanBeDisintegrated, Is.EqualTo(7));
+    }
 }
 
