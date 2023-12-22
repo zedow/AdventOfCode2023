@@ -33,7 +33,7 @@ namespace AdventOfCode2023.Tests._2023.Day20
                 { "a", new FlipFlopModule("a",new List<string>() { "b" }, false) },
                 { "b", new FlipFlopModule("b",new List<string>() { "c" }, false) },
                 { "c", new FlipFlopModule("c",new List<string>() { "inv" }, false) },
-                { "inv", new ConjonctionModule("inv",new List<string>() { "a" }, new Dictionary<string, PulseType> { { "c", PulseType.LowPulse } }) }
+                { "inv", new ConjonctionModule("inv",new List<string>() { "a" }, new Dictionary<string, PulseType> { { "c", PulseType.LowPulse }, },new Dictionary<string, PulseType> { { "c", PulseType.LowPulse }, }) }
             };
             var pulsePro = new PulsePropagation();
 
