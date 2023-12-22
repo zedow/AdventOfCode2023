@@ -23,8 +23,9 @@ public class SandSlabs : IChallenge
     public IEnumerable<int> DisintegrateBricks(string input)
     {
         var bricks = ParseInput(input);
-        var bricksSupports = SimulateGravity(bricks);
-        foreach(var brick in bricksSupports )
+        var fallenBricks = SimulateGravity(bricks);
+        BrickSupports bricksSupports = GetBricksSupports(fallenBricks);
+        foreach (var brick in bricksSupports )
         {
             var bricksAbove = bricksSupports.Where(b => b.Value.Contains(brick.Key));
             if (bricksAbove.Any() == false || bricksAbove.All(b => b.Value.Count() > 1))
@@ -34,39 +35,45 @@ public class SandSlabs : IChallenge
         }
     }
 
-    public BrickSupports SimulateGravity(List<Brick> snapshot, float floor = 1)
+    public List<Brick> SimulateGravity(List<Brick> snapshot, float floor = 1)
     {
-        BrickSupports supports = new BrickSupports();
-        var queue = new Queue<Brick>();
-        snapshot.OrderBy(s => s.Position.Z).ToList().ForEach(queue.Enqueue);
-        while(queue.Count > 0)
+        snapshot = snapshot.OrderBy(s => s.Position.Z).ToList();
+        for(int i =0; i < snapshot.Count(); i ++)
         {
-            var brick = queue.Dequeue();
-            var brickPosition = brick.Position;
-            while (brickPosition.Z > floor && supports.Any(brickFromSnapShop => brickFromSnapShop.Key.Position.Z == brickPosition.Z) == false)
+            float newZ = 1;
+            for(int y = 0; y < i; y++)
             {
-                brickPosition -= Vector3.UnitZ;
+                if (DoesBricksMerge(snapshot[i], snapshot[y]))
+                {
+                    newZ = Math.Max(newZ, snapshot[y].Depth.Z + 1);
+                }
             }
-
-            var mergeBricks = supports.Where(brickFromSnapShot => brickFromSnapShot.Key.Position.Z == brickPosition.Z 
-            && DoesBricksMerge(brickFromSnapShot.Key, brick)).Select(b => b.Key).ToList();
-            if (mergeBricks.Any())
-            {
-                brickPosition += Vector3.UnitZ;
-                supports.Add(new Brick(brickPosition, brick.Depth with { Z = brickPosition.Z }), mergeBricks);
-            }
-            else
-            {
-                supports.Add(new Brick(brickPosition, brick.Depth with { Z = brickPosition.Z }), new List<Brick>());
-            }
+            var gravitySteps = snapshot[i].Position.Z - newZ;
+            var newPosition = snapshot[i].Position with { Z = snapshot[i].Position.Z - gravitySteps };
+            var newDepth = snapshot[i].Depth with { Z = snapshot[i].Depth.Z - gravitySteps };
+            snapshot[i] = snapshot[i] with { Position = newPosition, Depth = newDepth };
         }
+        return snapshot;
+    }
 
+    public BrickSupports GetBricksSupports(List<Brick> snapshot)
+    {
+        var supports = new BrickSupports();
+        foreach (var brick in snapshot)
+        {
+            supports.Add(brick,
+                snapshot.Where(otherBrick => 
+                    otherBrick != brick && 
+                    otherBrick.Depth.Z == brick.Position.Z - 1 && 
+                    DoesBricksMerge(brick,otherBrick)
+                ).ToList());
+        }
         return supports;
     }
 
     public bool DoesBricksMerge(Brick brickA, Brick brickB)
     {
-        bool doesItMergeOnAxis(float a, float b, float ax, float bx) => (a <= b && ax >= bx) || (b <= a && bx >= ax);
+        bool doesItMergeOnAxis(float a, float b, float ax, float bx) => (a <= bx && b <= ax);
 
         return doesItMergeOnAxis(brickA.Position.X, brickB.Position.X, brickA.Depth.X, brickB.Depth.X)
                 && doesItMergeOnAxis(brickA.Position.Y, brickB.Position.Y, brickA.Depth.Y, brickB.Depth.Y);

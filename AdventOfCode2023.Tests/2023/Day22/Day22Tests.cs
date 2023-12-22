@@ -27,7 +27,8 @@ internal class Day22Tests
             { new Brick(new Vector3(0, 2, 2), new Vector3(2, 2, 2)), new List<Brick>() { new Brick(new Vector3(1, 0, 1), new Vector3(1, 2, 1)) } },
         };
 
-        var brickSupports = sandSlabs.SimulateGravity(bricks).Select(b => b.Key).ToList();
+        var fallenBricks = sandSlabs.SimulateGravity(bricks);
+        var brickSupports = sandSlabs.GetBricksSupports(fallenBricks).Select(b => b.Key).ToList();
 
         Assert.That(brickSupports.SequenceEqual(expectedSequence.Select(b => b.Key).ToList()), Is.True);
     }
