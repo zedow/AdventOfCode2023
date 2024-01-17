@@ -84,7 +84,7 @@ public class Crudible : IChallenge
             let cell = int.Parse(lines[irow].Substring(icol, 1))
             let pos = new Complex(icol, irow)
             select new KeyValuePair<Complex, int>(pos, cell)
-        ).ToDictionary();
+        ).ToDictionary(k => k.Key, k => k.Value);
     }
 }
 

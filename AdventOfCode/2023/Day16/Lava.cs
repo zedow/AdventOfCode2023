@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Numerics;
 using System.Collections.Immutable;
 using AdventOfCode._2023.Day10;
+using AdventOfCode.Kernel;
 
 namespace AdventOfCode._2023.Day16;
 
@@ -121,7 +122,7 @@ public class Lava : IChallenge
             let pos = new Complex(icol, irow)
             let chr = input[irow][icol]
             select new KeyValuePair<Complex, char>(pos, chr)
-        ).ToDictionary();
+        ).ToDictionary(k => k.Key, k => k.Value);
     }
 }
 

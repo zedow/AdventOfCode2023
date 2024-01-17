@@ -147,7 +147,7 @@ public class LongWalk : IChallenge
             let pos = new Complex(icol, irow)
             let chr = rows[irow][icol]
             select new KeyValuePair<Complex,char>(pos, chr)
-        ).ToDictionary();
+        ).ToDictionary(k => k.Key, k => k.Value);
     }
 }
 

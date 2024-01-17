@@ -114,7 +114,7 @@ public class Dish : IChallenge
             let pos = new Complex(icol,irow)
             let cell = inputArray[irow][icol]
             select new KeyValuePair<Complex,char>(pos,cell)
-        ).ToDictionary();
+        ).ToDictionary(k => k.Key, k => k.Value);
     }
 
     public string MapToString(Map map)
