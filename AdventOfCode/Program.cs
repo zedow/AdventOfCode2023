@@ -18,7 +18,7 @@ if (type == null)
     throw new Exception("Challenge does not exist");
 
 var solver = (IChallenge)Activator.CreateInstance(type)!;
-var filePath = File.ReadAllText("..\\..\\..\\" + type.GetCustomAttribute<ChallengeAttribute>()!.GetInputFilePath());
+var filePath = File.ReadAllText(type.GetCustomAttribute<ChallengeAttribute>()!.GetInputFilePath());
 
 var stopWatch = new Stopwatch();
 
