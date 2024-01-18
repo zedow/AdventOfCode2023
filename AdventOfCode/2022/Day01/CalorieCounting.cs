@@ -15,7 +15,7 @@ public class CalorieCounting : IChallenge
     {
         var blocks = input.Split("\r\n\r\n",StringSplitOptions.RemoveEmptyEntries);
         return (
-            from iblock in Enumerable.Range(0,blocks.Count())
+            from iblock in Enumerable.Range(0, blocks.Length)
             select MyFileReader.ParseIntegers(blocks[iblock]).ToArray()
         ).ToList();
     } 
