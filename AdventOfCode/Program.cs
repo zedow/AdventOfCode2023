@@ -8,13 +8,11 @@ using System.Reflection;
 
 var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ChallengeAttribute)));
 
-var challengeToRun = "Tuning Trouble";
+Console.WriteLine("Please type challenge name:");
+var challengeToRun = "No Space Left On Device";
 
 Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute))
-    && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun);
-
-if (type == null)
-    throw new Exception("Challenge does not exist");
+    && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun) ?? throw new Exception("Challenge does not exist");
 
 var solver = (IChallenge)Activator.CreateInstance(type)!;
 var filePath = File.ReadAllText(type.GetCustomAttribute<ChallengeAttribute>()!.GetInputFilePath());
