@@ -13,13 +13,13 @@ public class TreeHouse : IChallenge
     private readonly ImmutableArray<Complex> Directions = ImmutableArray.Create([-Complex.ImaginaryOne, -1, Complex.ImaginaryOne, 1]);
     public object SolvePartOne(string input)
     {
-        var map = ParseMap(input);
+        var map = Helpers.ParseIntegerMap(input);
         return map.Count(tree => CheckVisibility(map,tree.Key));
     }
 
     public object SolvePartTwo(string input)
     {
-        var map = ParseMap(input);
+        var map = Helpers.ParseIntegerMap(input);
         return map.Max(tree => GetViewDistanceScore(map,tree));
     }
 
@@ -67,17 +67,5 @@ public class TreeHouse : IChallenge
         }
 
         return false;
-    }
-
-    public static Map ParseMap(string input)
-    {
-        var lines = input.Split('\n');
-        return (
-            from irow in Enumerable.Range(0, lines.Length)
-            from icol in Enumerable.Range(0, lines[irow].Length)
-            let pos = new Complex(icol,irow)
-            let val = int.Parse(lines[irow].Substring(icol, 1))
-            select new KeyValuePair<Complex,int>(pos,val)
-        ).ToDictionary(k => k.Key, v => v.Value);
     }
 }
