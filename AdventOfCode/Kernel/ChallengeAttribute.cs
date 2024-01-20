@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kernel
+namespace AdventOfCode.Kernel
 {
     [System.AttributeUsage(System.AttributeTargets.Class)]
     public class ChallengeAttribute : System.Attribute
