@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Kernel
+namespace AdventOfCode.Kernel
 {
     public class MyFileReader
     {

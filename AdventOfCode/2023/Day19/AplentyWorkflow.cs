@@ -1,5 +1,4 @@
 ﻿using AdventOfCode.Kernel;
-using Kernel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;

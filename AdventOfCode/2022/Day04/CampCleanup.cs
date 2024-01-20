@@ -1,5 +1,4 @@
 using AdventOfCode.Kernel;
-using Kernel;
 
 namespace AdventOfCode._2022.Day04;
 

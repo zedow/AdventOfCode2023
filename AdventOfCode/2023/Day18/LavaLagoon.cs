@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdventOfCode.Kernel;
-using Kernel;
 using System.Numerics;
 
 namespace AdventOfCode._2023.Day18;

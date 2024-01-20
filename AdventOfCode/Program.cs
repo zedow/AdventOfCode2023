@@ -1,7 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using AdventOfCode._2023.Day13;
 using AdventOfCode.Kernel;
-using Kernel;
 using System.Diagnostics;
 using System.Reflection;
 

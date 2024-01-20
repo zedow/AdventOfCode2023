@@ -5,7 +5,6 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using AdventOfCode.Kernel;
-using Kernel;
 
 namespace AdventOfCode._2023.Day10;
 

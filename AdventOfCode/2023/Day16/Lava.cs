@@ -1,5 +1,4 @@
 ﻿using AdventOfCode.Kernel;
-using Kernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 using System.Numerics;
 using System.Collections.Immutable;
 using AdventOfCode._2023.Day10;
-using AdventOfCode.Kernel;
 
 namespace AdventOfCode._2023.Day16;
 

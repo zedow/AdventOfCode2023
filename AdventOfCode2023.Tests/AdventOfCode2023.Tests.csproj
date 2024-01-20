@@ -17,16 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdventOfCode2023Day11\AdventOfCode2023Day11.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day1\AdventOfCode2023Day1.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day3\AdventOfCode2023Day3.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day4\AdventOfCode2023Day4.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day5\AdventOfCode2023Day5.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day6\AdventOfCode2023Day6.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day7\AdventOfCode2023Day7.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day8\AdventOfCode2023Day8.csproj" />
-    <ProjectReference Include="..\AdventOfCode2023Day9\AdventOfCode2023Day9.csproj" />
-    <ProjectReference Include="..\AdventOfCodeDay2\AdventOfCodeDay2.csproj" />
     <ProjectReference Include="..\AdventOfCode\AdventOfCode.csproj" />
   </ItemGroup>
 

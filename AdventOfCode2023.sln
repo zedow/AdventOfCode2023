@@ -3,29 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day3", "AdventOfCode2023Day3\AdventOfCode2023Day3.csproj", "{C592F4EF-5570-4C12-820C-0A697F415B2A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023.Tests", "AdventOfCode2023.Tests\AdventOfCode2023.Tests.csproj", "{A10EB749-FC76-416C-8835-F4E1721AFF03}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kernel", "Kernel\Kernel.csproj", "{94AB5BC2-D7E0-4B8F-8267-485028AF9D71}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCodeDay2", "AdventOfCodeDay2\AdventOfCodeDay2.csproj", "{C23E4202-A609-45A6-A813-4A12C90309B1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day4", "AdventOfCode2023Day4\AdventOfCode2023Day4.csproj", "{A2F87D6D-C4A0-4CEA-9C58-B22538AF22CF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day5", "AdventOfCode2023Day5\AdventOfCode2023Day5.csproj", "{CD19E6CD-184F-4900-817F-E16962F76560}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day6", "AdventOfCode2023Day6\AdventOfCode2023Day6.csproj", "{A087AEA8-BB0B-4D5D-908F-52B9F02F08BD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day1", "AdventOfCode2023Day1\AdventOfCode2023Day1.csproj", "{5936314B-B030-4022-B23E-CF46887A15A6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day7", "AdventOfCode2023Day7\AdventOfCode2023Day7.csproj", "{C4A0DB8C-F14B-4FA8-87A5-E7A1E87C7510}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day8", "AdventOfCode2023Day8\AdventOfCode2023Day8.csproj", "{B5B20E92-D036-43AD-916D-B7886441608D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day9", "AdventOfCode2023Day9\AdventOfCode2023Day9.csproj", "{D7F3D3F0-ACD7-4745-B2BA-B8B8F9BAF679}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Day11", "AdventOfCode2023Day11\AdventOfCode2023Day11.csproj", "{2973BF10-A355-42D7-85BD-7BCF8C7436C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode", "AdventOfCode\AdventOfCode.csproj", "{88B3B2FE-37F9-4305-BAB7-18662467484B}"
 EndProject
