@@ -3,13 +3,14 @@ using AdventOfCode.Kernel;
 namespace AdventOfCode._2022.Day11;
 
 [Challenge("Monkey In The Middle", "2022/Day11/input.txt")]
-public class MonkeyInTheMiddle : IChallenge
+public class Solution : IChallenge
 {
     public object SolvePartOne(string input)
         => PlayRounds(20,input, (long worry) => worry / 3);
 
     public object SolvePartTwo(string input) {
         var monkeys = ParseInput(input);
+        // Calculates a common denominator to reduce the value so as not to exceed the maximum size tolerated by an in64
         var mod = monkeys.Aggregate(1L,(acc,monkey) => acc * monkey.Mod);
         return PlayRounds(10_000, input, (long worry) => worry % mod);
     }

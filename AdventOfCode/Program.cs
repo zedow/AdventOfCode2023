@@ -8,7 +8,7 @@ using System.Reflection;
 var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ChallengeAttribute)));
 
 Console.WriteLine("Please type challenge name:");
-var challengeToRun = "Monkey In The Middle";
+var challengeToRun = "Hill Climbing Algorithm";
 
 Type? type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsDefined(typeof(ChallengeAttribute))
     && t?.GetCustomAttribute<ChallengeAttribute>()?.GetName() == challengeToRun) ?? throw new Exception("Challenge does not exist");
