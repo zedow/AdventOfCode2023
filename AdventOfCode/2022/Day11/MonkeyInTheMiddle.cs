@@ -11,7 +11,7 @@ public class MonkeyInTheMiddle : IChallenge
     public object SolvePartTwo(string input) {
         var monkeys = ParseInput(input);
         var mod = monkeys.Aggregate(1L,(acc,monkey) => acc * monkey.Mod);
-        return PlayRounds(1000, input, (long worry) => worry % mod);
+        return PlayRounds(10_000, input, (long worry) => worry % mod);
     }
     
     public long PlayRounds(int numberOfRounds, string input, Func<long,long> worryOperation)
